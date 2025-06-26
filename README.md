@@ -6,11 +6,12 @@ A simple personal portfolio website built with HTML, managed via Git using Termu
 
 ## 📁 Project Structure
 
-my-portfolio/  
-│  
-├── index.html        # Main website page  
-├── README.md         # Project overview  
-└── (Optional: assets/, css/, images/ if you add more)
+my-portfolio/
+├── assets/
+│   └── images/
+│       └── icon.png
+├── index.html
+├── style.css
 
 ---
 
