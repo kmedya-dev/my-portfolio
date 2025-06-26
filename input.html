@@ -1,0 +1,6 @@
+# উদাহরণস্বরূপ clipboard-এর কনটেন্ট input.html-এ রাখছি
+termux-clipboard-get > input.html
+
+# এবার </body> ট্যাগের ঠিক আগে ইনজেক্ট
+sed -i '/<\/body>/{r input.html
+}' index.html
