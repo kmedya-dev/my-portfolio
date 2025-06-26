@@ -46,6 +46,14 @@ nav a:hover {
 /* Sections */
 section {
   margin-bottom: 2rem;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.6s ease-out;
+}
+
+section.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 h2 {
@@ -53,6 +61,40 @@ h2 {
   border-bottom: 2px solid #bb86fc;
   padding-bottom: 10px;
   margin-bottom: 20px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* My resume */
+.resume-section {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.6s ease-out;
+}
+
+.resume-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* button */
+.btn-download {
+  display: inline-block;
+  background-color: #03dac6;
+  color: #121212;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.btn-download:hover {
+  background-color: #029d94;
 }
 
 /* Projects */
