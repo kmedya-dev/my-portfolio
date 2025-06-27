@@ -66,13 +66,16 @@ and footer. It uses semantic HTML5 tags for better accessibility and SEO.
     <main>
       <!-- Hero Section -->
       <section id="hero" class="hero">
-        <div class="container">
-          <h2>Hi, I'm Koustava 👋</h2>
-          <p>
-            M.Sc. Applied Mathematics | Aspiring Developer | Cybersecurity
-            Enthusiast
-          </p>
-          <a href="#projects" class="btn">See My Work</a>
+        <div class="container hero-content">
+          <div class="hero-text">
+            <h2>Hi, I'm Koustava 👋</h2>
+            <p>
+              M.Sc. Applied Mathematics | Aspiring Developer | Cybersecurity
+              Enthusiast
+            </p>
+            <a href="#projects" class="btn">See My Work</a>
+          </div>
+          <img src="assets/images/kmedya.png" alt="Koustava Medya" class="hero-image" />
         </div>
       </section>
 
@@ -134,22 +137,23 @@ and footer. It uses semantic HTML5 tags for better accessibility and SEO.
         <div class="container">
           <h2>Contact</h2>
           <form id="contact-form">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" required />
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required />
 
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required />
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required />
 
-            <label for="message">Message</label>
-            <textarea
+        <label for="message">Message</label>
+        <textarea
               id="message"
               name="message"
               rows="5"
               required
             ></textarea>
 
-            <button type="submit" class="btn">Send</button>
-          </form>
+        <button type="submit" class="btn">Send</button>
+      </form>
+      <div id="form-status"></div>
         </div>
       </section>
     </main>

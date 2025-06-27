@@ -131,6 +131,25 @@ body {
 /* ========== Sections & Content === */
 /* =============================== */
 
+.hero-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.hero-text {
+  flex: 1;
+}
+
+.hero-image {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #bb86fc;
+}
+
 section {
   padding: 40px 0;
   border-bottom: 1px solid #333;
@@ -246,6 +265,12 @@ footer {
 /* =============================== */
 /* ========== Utility Classes ====== */
 /* =============================== */
+
+#form-status {
+  margin-top: 1rem;
+  color: #03dac6;
+  font-weight: bold;
+}
 
 /* "Back to Top" button */
 #backToTop {

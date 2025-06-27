@@ -106,4 +106,23 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Initial Load ---
   // Load the blog posts as soon as the page is ready.
   loadBlogPosts();
+
+  // ===================================================================
+  // ======================= CONTACT FORM ============================
+  // ===================================================================
+
+  const contactForm = document.getElementById('contact-form');
+  const formStatus = document.getElementById('form-status');
+
+  contactForm.addEventListener('submit', (e) => {
+    e.preventDefault(); // Prevent the default form submission
+
+    // Simulate form submission
+    formStatus.textContent = 'Sending...';
+
+    setTimeout(() => {
+      formStatus.textContent = 'Your message has been sent successfully!';
+      contactForm.reset(); // Clear the form
+    }, 2000); // Simulate a 2-second delay
+  });
 });
