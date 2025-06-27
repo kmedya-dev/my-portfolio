@@ -1,27 +1,3 @@
-<!--
-================================================================================================
-index.html - Main HTML structure for the portfolio website.
-------------------------------------------------------------------------------------------------
-This file defines the layout of the entire site, including the header, main content sections,
-and footer. It uses semantic HTML5 tags for better accessibility and SEO.
-
-- The <head> section includes metadata, links to the stylesheet (style.css), the site icon,
-  and scripts.
-- It imports the 'marked' library from a CDN, which is used to parse Markdown files for the blog.
-- The main script file, 'script.js', is deferred to ensure it runs after the HTML is parsed.
-
-- The <body> contains:
-  - <header>: A sticky header with the logo and navigation menu.
-  - <main>: The primary content area, divided into sections:
-    - #hero: A welcome banner.
-    - #about: A brief introduction.
-    - #projects: A showcase of projects.
-    - #blog: This is where blog posts are dynamically loaded by script.js.
-    - #resume: A link to the downloadable resume.
-    - #contact: A contact form.
-  - <footer>: Contains copyright info, social media links, and a "back to top" button.
-================================================================================================
--->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -48,13 +24,12 @@ and footer. It uses semantic HTML5 tags for better accessibility and SEO.
     <!-- ================== HEADER ================== -->
     <header class="header">
       <div class="container">
-        <h1 class="logo">Koustava Medya</h1>
+        <a href="#" class="logo">Koustava Medya</a>
         <button class="menu-toggle" aria-label="Toggle navigation">☰</button>
         <nav class="nav" id="nav">
           <ul>
             <li><a href="#about">About</a></li>
             <li><a href="#projects">Projects</a></li>
-            <li><a href="#resume">Resume</a></li>
             <li><a href="#blog">Blog</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
@@ -68,14 +43,44 @@ and footer. It uses semantic HTML5 tags for better accessibility and SEO.
       <section id="hero" class="hero">
         <div class="container hero-content">
           <div class="hero-text">
-            <h2>Hi, I'm Koustava 👋</h2>
-            <p>
-              M.Sc. Applied Mathematics | Aspiring Developer | Cybersecurity
-              Enthusiast
-            </p>
-            <a href="#projects" class="btn">See My Work</a>
+            <h1>Hello.<br>I'm Koustava</h1>
+            <h2>Web Developer, Ethical Hacker</h2>
+            <div class="hero-buttons">
+              <a href="#projects" class="btn btn-primary">Get a project?</a>
+              <a href="assets/Koustava_Medya_Resume.pdf" class="btn btn-secondary" target="_blank">My resume</a>
+            </div>
           </div>
-          <img src="assets/images/kmedya.png" alt="Koustava Medya" class="hero-image" />
+          <div class="hero-image-container">
+            <img src="assets/images/kmedya.png" alt="Koustava Medya" class="hero-image" />
+          </div>
+        </div>
+      </section>
+
+      <!-- Tech Stack Section -->
+      <section id="tech-stack" class="tech-stack section">
+        <div class="container">
+          <ul class="tech-stack-list">
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>C</li>
+            <li>Python</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Services Section -->
+      <section id="services" class="services section">
+        <div class="container">
+          <div class="service-item">
+            <h3>Web Development</h3>
+          </div>
+          <div class="service-item">
+            <h3>Web Hosting</h3>
+          </div>
+          <div class="service-item">
+            <h3>Penetration Testing</h3>
+          </div>
         </div>
       </section>
 
@@ -91,18 +96,57 @@ and footer. It uses semantic HTML5 tags for better accessibility and SEO.
         </div>
       </section>
 
+      <!-- Achievements Section -->
+      <section id="achievements" class="achievements section">
+        <div class="container">
+          <h2>Achievements</h2>
+          <div class="achievement-grid">
+            <div class="achievement-item">
+              <h3>Award/Certification 1</h3>
+              <p>Description of the achievement.</p>
+            </div>
+            <div class="achievement-item">
+              <h3>Award/Certification 2</h3>
+              <p>Description of the achievement.</p>
+            </div>
+            <div class="achievement-item">
+              <h3>Award/Certification 3</h3>
+              <p>Description of the achievement.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- Projects Section -->
       <section id="projects" class="projects section">
         <div class="container">
           <h2>Projects</h2>
-          <div class="project-card">
-            <h3>My Portfolio</h3>
-            <p>A modern responsive website showcasing my work and blog.</p>
-            <a
-              href="https://kmedya-dev.github.io/my-portfolio/"
-              target="_blank"
-              >View Project</a
-            >
+          <div class="project-grid">
+            <div class="project-card">
+              <img src="https://via.placeholder.com/300x200" alt="Project 1" />
+              <h3>Project Title 1</h3>
+              <p>Short description of Project 1.</p>
+              <a href="#" target="_blank" class="btn btn-secondary">View Project</a>
+            </div>
+            <div class="project-card">
+              <img src="https://via.placeholder.com/300x200" alt="Project 2" />
+              <h3>Project Title 2</h3>
+              <p>Short description of Project 2.</p>
+              <a href="#" target="_blank" class="btn btn-secondary">View Project</a>
+            </div>
+            <div class="project-card">
+              <img src="https://via.placeholder.com/300x200" alt="Project 3" />
+              <h3>Project Title 3</h3>
+              <p>Short description of Project 3.</p>
+              <a href="#" target="_blank" class="btn btn-secondary">View Project</a>
+            </div>
+            <!-- Current Portfolio Project -->
+            <div class="project-card">
+              <img src="https://via.placeholder.com/300x200" alt="My Portfolio" />
+              <h3>My Portfolio</h3>
+              <p>A modern responsive website showcasing my work and blog.</p>
+              <a href="https://kmedya-dev.github.io/my-portfolio/" target="_blank" class="btn btn-secondary">View Project</a>
+            </div>
           </div>
         </div>
       </section>
@@ -111,24 +155,9 @@ and footer. It uses semantic HTML5 tags for better accessibility and SEO.
       <section id="blog" class="blog section">
         <div class="container">
           <h2>Blog</h2>
-          <!-- This div is the target for blog post injection. -->
-          <!-- The content is generated by script.js, which fetches and parses Markdown files. -->
-          <div id="blog-posts">
-            <!-- Blog posts from markdown will be injected here by script.js -->
+          <div class="blog-grid" id="blog-posts">
+            <!-- Blog posts will be injected here by script.js -->
           </div>
-        </div>
-      </section>
-
-      <!-- Resume Section -->
-      <section id="resume" class="resume section">
-        <div class="container">
-          <h2>Resume</h2>
-          <p>
-            You can download my resume here:
-            <a href="assets/Koustava_Medya_Resume.pdf" target="_blank"
-              >Download Resume</a
-            >
-          </p>
         </div>
       </section>
 
@@ -136,24 +165,24 @@ and footer. It uses semantic HTML5 tags for better accessibility and SEO.
       <section id="contact" class="contact section">
         <div class="container">
           <h2>Contact</h2>
-          <form id="contact-form">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" required />
+          <form id="contact-form" action="https://formspree.io/f/your-form-id" method="POST">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required />
 
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required />
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required />
 
-        <label for="message">Message</label>
-        <textarea
+            <label for="message">Message</label>
+            <textarea
               id="message"
               name="message"
               rows="5"
               required
             ></textarea>
 
-        <button type="submit" class="btn">Send</button>
-      </form>
-      <div id="form-status"></div>
+            <button type="submit" class="btn">Send</button>
+          </form>
+          <div id="form-status"></div>
         </div>
       </section>
     </main>

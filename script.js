@@ -3,20 +3,22 @@
 // ===============================
 
 // This script enhances the portfolio with interactive features:
-// 1.  A "Back to Top" button that appears on scroll.
-// 2.  Smooth animations for sections as they scroll into view.
-// 3.  A dynamic blog loader that fetches, parses, and displays posts from Markdown files.
-// 4.  A mobile-friendly navigation menu toggle.
+// 1.  A sticky header that changes background on scroll.
+// 2.  A mobile-friendly navigation menu toggle.
+// 3.  A simple contact form handler.
+// 4.  Dynamic blog post loading and display.
 
 console.log("Hello from script.js 👋");
 
 document.addEventListener('DOMContentLoaded', () => {
   // --- Element Selections ---
-  const sections = document.querySelectorAll('section');
-  const topBtn = document.getElementById('backToTop');
-  const blogList = document.getElementById('blog-posts');
+  const header = document.querySelector('.header');
   const menuToggle = document.querySelector('.menu-toggle');
   const nav = document.querySelector('.nav');
+  const contactForm = document.getElementById('contact-form');
+  const formStatus = document.getElementById('form-status');
+  const sections = document.querySelectorAll('section'); // Select all sections
+  const blogList = document.getElementById('blog-posts'); // Blog posts container
 
   // --- Data ---
   // List of Markdown files for blog posts.
@@ -26,15 +28,20 @@ document.addEventListener('DOMContentLoaded', () => {
   // =================== INTERACTIVE UI FEATURES =======================
   // ===================================================================
 
-  // --- Back to Top Button ---
-  // Shows the button when the user scrolls down 200px.
+  // --- Sticky Header on Scroll ---
+  // Adds a background color to the header when the user scrolls down.
   window.addEventListener('scroll', () => {
-    topBtn.style.display = window.scrollY > 200 ? 'flex' : 'none';
+    if (window.scrollY > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
   });
 
-  // Scrolls the page to the top smoothly when the button is clicked.
-  topBtn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  // --- Mobile Navigation Toggle ---
+  // Toggles the 'active' class on the navigation menu to show/hide it.
+  menuToggle.addEventListener('click', () => {
+    nav.classList.toggle('active');
   });
 
   // --- Section Animation on Scroll ---
@@ -42,16 +49,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // This triggers a fade-in animation defined in style.css.
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(({ isIntersecting, target }) => {
-      if (isIntersecting) target.classList.add('visible');
+      if (isIntersecting) {
+        target.classList.add('visible');
+        observer.unobserve(target); // Stop observing once visible
+      }
     });
+  }, {
+    threshold: 0.1 // Trigger when 10% of the section is visible
   });
   sections.forEach(section => observer.observe(section));
-
-  // --- Mobile Navigation Toggle ---
-  // Toggles the 'active' class on the navigation menu to show/hide it.
-  menuToggle.addEventListener('click', () => {
-    nav.classList.toggle('active');
-  });
 
   // ===================================================================
   // ======================= BLOG POST LOADER ==========================
@@ -61,16 +67,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // A simple parser to extract metadata (like title, date) from the top of a Markdown file.
   // Metadata is expected to be in YAML format, enclosed by '---'.
   const parseFrontMatter = (text) => {
-    // Splits the file into metadata and content parts.
     const [meta, ...body] = text.split('---').filter(Boolean);
     const lines = meta.trim().split('\n');
     const metadata = {};
-    // Parses each line of the metadata.
     lines.forEach(line => {
       const [key, ...rest] = line.split(':');
       metadata[key.trim()] = rest.join(':').trim();
     });
-    // Returns the parsed metadata and the main content.
     return { metadata, content: body.join('---').trim() };
   };
 
@@ -79,50 +82,77 @@ document.addEventListener('DOMContentLoaded', () => {
   const loadBlogPosts = async () => {
     let posts = [];
 
-    // 1. Fetch each Markdown file from the 'blog/' directory.
     for (const file of postFiles) {
       const res = await fetch(`blog/${file}`);
       const text = await res.text();
-      // 2. Parse the front matter and content from the file.
       const { metadata, content } = parseFrontMatter(text);
       posts.push({ ...metadata, content });
     }
 
-    // 3. Sort posts by date in descending order (newest first).
     posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-    // 4. Generate HTML for each post and inject it into the #blog-posts container.
-    // It uses the 'marked' library (loaded in index.html) to convert Markdown to HTML.
-    // A snippet of the content (first 200 chars) is shown as a preview.
     blogList.innerHTML = posts.map(post => `
-      <article class="project">
+      <div class="blog-post-card" data-title="${post.title}">
+        <img src="https://via.placeholder.com/300x200" alt="${post.title}" />
         <h3>${post.title}</h3>
-        <small>${post.date}</small>
-        <div>${marked.parse(post.content.substring(0, 200))}...</div>
-      </article>
+        <p>${post.content.substring(0, 100)}...</p>
+      </div>
     `).join('');
+
+    // Add click listener for expandable blog posts
+    document.querySelectorAll('.blog-post-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        const title = e.currentTarget.dataset.title;
+        console.log(`Clicked on blog post: ${title}. Full content would be displayed here.`);
+        // In a real implementation, you would open a modal or navigate to a new page
+        // to display the full blog post content.
+      });
+    });
   };
 
   // --- Initial Load ---
-  // Load the blog posts as soon as the page is ready.
   loadBlogPosts();
 
   // ===================================================================
   // ======================= CONTACT FORM ============================
   // ===================================================================
 
-  const contactForm = document.getElementById('contact-form');
-  const formStatus = document.getElementById('form-status');
+  if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault(); // Prevent the default form submission
 
-  contactForm.addEventListener('submit', (e) => {
-    e.preventDefault(); // Prevent the default form submission
+      formStatus.textContent = 'Sending...';
+      formStatus.style.color = '#ff8c00'; // Orange for sending
 
-    // Simulate form submission
-    formStatus.textContent = 'Sending...';
+      const formData = new FormData(contactForm);
 
-    setTimeout(() => {
-      formStatus.textContent = 'Your message has been sent successfully!';
-      contactForm.reset(); // Clear the form
-    }, 2000); // Simulate a 2-second delay
-  });
+      try {
+        const response = await fetch(contactForm.action, {
+          method: contactForm.method,
+          body: formData,
+          headers: {
+              'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          formStatus.textContent = 'Your message has been sent successfully!';
+          formStatus.style.color = '#03dac6'; // Green for success
+          contactForm.reset(); // Clear the form
+        } else {
+          const data = await response.json();
+          if (Object.hasOwnProperty.call(data, 'errors')) {
+            formStatus.textContent = data["errors"].map(error => error["message"]).join(", ");
+          } else {
+            formStatus.textContent = 'Oops! There was a problem submitting your form.';
+          }
+          formStatus.style.color = '#ff0000'; // Red for error
+        }
+      } catch (error) {
+        formStatus.textContent = 'Oops! There was a network error.';
+        formStatus.style.color = '#ff0000'; // Red for error
+        console.error('Network error:', error);
+      }
+    });
+  }
 });

@@ -2,15 +2,14 @@
 ================================================================================================
 style.css - Main stylesheet for the portfolio website.
 ------------------------------------------------------------------------------------------------
-This file provides all the styling for the portfolio, following a modern, dark-theme design.
-It includes styles for general layout, typography, header, navigation, sections, and the footer.
-It also contains responsive design rules to ensure the site looks good on all devices.
+This file provides all the styling for the portfolio, following a modern, dark-theme design 
+with orange accents, inspired by the Behance design.
 
 Key features:
 - Dark Theme: Uses a dark background (#121212) and light text for a comfortable viewing experience.
 - Responsive Design: Uses media queries to adapt the layout for smaller screens (e.g., mobile phones).
 - Interactive Elements: Includes styles for hover effects, animations, and a "back to top" button.
-- Consistent Color Scheme: Uses a defined color palette with primary (#bb86fc) and secondary (#03dac6) colors.
+- Consistent Color Scheme: Uses a defined color palette with a primary orange accent.
 ================================================================================================
 */
 
@@ -29,7 +28,7 @@ body {
 }
 
 .container {
-  max-width: 960px; /* Maximum width for the main content */
+  max-width: 1100px; /* Maximum width for the main content */
   margin: 0 auto; /* Center the content */
   padding: 20px;
 }
@@ -39,12 +38,16 @@ body {
 /* =============================== */
 
 .header {
-  background-color: #1e1e1e; /* Slightly lighter dark shade for the header */
-  padding: 1rem 0;
-  border-bottom: 1px solid #333; /* Subtle border */
+  background-color: transparent; /* Transparent header */
+  padding: 1.5rem 0;
   position: sticky; /* Make the header stick to the top on scroll */
   top: 0;
   z-index: 1000; /* Ensure it stays above other content */
+  transition: background-color 0.3s ease;
+}
+
+.header.scrolled {
+  background-color: #1e1e1e; /* Add background on scroll */
 }
 
 .header .container {
@@ -55,8 +58,9 @@ body {
 
 .logo {
   font-size: 1.8rem;
-  color: #bb86fc; /* Primary accent color */
-  margin: 0;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
 }
 
 .nav ul {
@@ -67,18 +71,18 @@ body {
 }
 
 .nav li {
-  margin-left: 20px;
+  margin-left: 30px;
 }
 
 .nav a {
-  color: #03dac6; /* Secondary accent color */
+  color: #fff;
   text-decoration: none;
   font-size: 1.1rem;
-  transition: color 0.3s ease; /* Smooth color transition on hover */
+  transition: color 0.3s ease;
 }
 
 .nav a:hover {
-  color: #029d94; /* Darker shade for hover */
+  color: #ff8c00; /* Orange accent color */
 }
 
 /* Hamburger menu for mobile */
@@ -86,9 +90,124 @@ body {
   display: none; /* Hidden by default on larger screens */
   background: none;
   border: none;
-  color: #03dac6;
+  color: #fff;
   font-size: 2rem;
   cursor: pointer;
+}
+
+/* =============================== */
+/* ========== Hero Section =========== */
+/* =============================== */
+
+.hero {
+  padding: 100px 0;
+  text-align: left;
+}
+
+.hero-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.hero-text h1 {
+  font-size: 4rem;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.hero-text h2 {
+  font-size: 1.5rem;
+  color: #ff8c00; /* Orange accent color */
+  margin: 10px 0 30px;
+}
+
+.hero-buttons .btn {
+  margin-right: 15px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 25px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #ff8c00;
+  color: #121212;
+}
+
+.btn-primary:hover {
+  background-color: #e67e00;
+}
+
+.btn-secondary {
+  border: 2px solid #ff8c00;
+  color: #ff8c00;
+}
+
+.btn-secondary:hover {
+  background-color: #ff8c00;
+  color: #121212;
+}
+
+.hero-image-container {
+  position: relative;
+}
+
+.hero-image {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #ff8c00;
+}
+
+/* =============================== */
+/* ======== Tech Stack Section ======= */
+/* =============================== */
+
+.tech-stack {
+  padding: 40px 0;
+  background-color: #1e1e1e;
+}
+
+.tech-stack-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tech-stack-list li {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* =============================== */
+/* ========= Services Section ======== */
+/* =============================== */
+
+.services .container {
+  display: flex;
+  justify-content: space-around;
+  gap: 2rem;
+}
+
+.service-item {
+  text-align: center;
+}
+
+.service-item h3 {
+  font-size: 1.5rem;
+  color: #ff8c00;
 }
 
 /* =============================== */
@@ -96,13 +215,21 @@ body {
 /* =============================== */
 
 @media (max-width: 768px) {
-  /* Styles for screens smaller than 768px (e.g., tablets and mobiles) */
+  .hero-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-text h1 {
+    font-size: 3rem;
+  }
+
   .nav {
     display: none; /* Hide the nav by default */
     flex-direction: column;
     width: 100%;
     position: absolute;
-    top: 60px; /* Position below the header */
+    top: 70px; /* Position below the header */
     left: 0;
     background-color: #1e1e1e;
     border-top: 1px solid #333;
@@ -125,168 +252,182 @@ body {
   .menu-toggle {
     display: block; /* Show the hamburger menu */
   }
+
+  .services .container {
+    flex-direction: column;
+  }
 }
 
 /* =============================== */
 /* ========== Sections & Content === */
 /* =============================== */
 
-.hero-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-}
-
-.hero-text {
-  flex: 1;
-}
-
-.hero-image {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #bb86fc;
-}
-
 section {
-  padding: 40px 0;
+  padding: 60px 0;
   border-bottom: 1px solid #333;
-  opacity: 0; /* Initially hidden for scroll animation */
-  transform: translateY(20px); /* Initially moved down for scroll animation */
+  opacity: 0; /* Initially hidden for animation */
+  transform: translateY(20px); /* Start slightly below for slide-up effect */
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
 section.visible {
   opacity: 1; /* Fade in when visible */
-  transform: translateY(0);
+  transform: translateY(0); /* Slide up to original position */
 }
 
 h2 {
-  color: #bb86fc;
-  border-bottom: 2px solid #bb86fc;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
+  text-align: center;
+  font-size: 2.5rem;
+  color: #ff8c00;
+  margin-bottom: 40px;
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 10px;
+/* =============================== */
+/* ========== Projects Section ======= */
+/* =============================== */
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
 }
 
-/* Blog post styling */
+.project-card {
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+.project-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+.project-card h3 {
+  color: #ff8c00;
+  margin: 15px;
+  font-size: 1.5rem;
+}
+
+.project-card p {
+  margin: 0 15px 15px;
+  color: #ccc;
+}
+
+.project-card .btn {
+  display: block;
+  width: calc(100% - 30px);
+  margin: 0 15px 15px;
+  text-align: center;
+}
+
+/* =============================== */
+/* ========== Blog Section ======== */
+/* =============================== */
+
 .blog-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
 }
 
-#blog article h3 {
-  color: #03dac6;
-  margin-bottom: 5px;
-}
-
-#blog article small {
-  color: #999;
-  display: block;
-  margin-bottom: 10px;
-}
-
-/* Skills list with a bounce animation */
-.skills-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  list-style: none;
-  padding: 0;
-}
-
-.skills-list li {
+.blog-post-card {
   background-color: #1e1e1e;
-  padding: 8px 12px;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  animation: bounce 2s infinite;
-}
-
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
-}
-
-/* =============================== */
-/* ========== Buttons & Forms ====== */
-/* =============================== */
-
-.btn {
-  display: inline-block;
-  background-color: #03dac6;
-  color: #121212;
-  padding: 10px 20px;
-  border-radius: 5px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-}
-
-.btn:hover {
-  background-color: #029d94;
-}
-
-/* Project card styling */
-.project {
-  background-color: #1e1e1e;
-  padding: 20px;
-  margin-bottom: 20px;
   border-radius: 8px;
-  transition: transform 0.3s ease, background-color 0.3s ease;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
 }
 
-.project:hover {
-  background-color: #2c2c2c;
-  transform: scale(1.02); /* Slight zoom effect on hover */
+.blog-post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+.blog-post-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+.blog-post-card h3 {
+  color: #ff8c00;
+  margin: 15px;
+  font-size: 1.5rem;
+}
+
+.blog-post-card p {
+  margin: 0 15px 15px;
+  color: #ccc;
+}
+
+/* =============================== */
+/* ========== Achievements Section ======== */
+/* =============================== */
+
+.achievement-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.achievement-item {
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.achievement-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+.achievement-item h3 {
+  color: #ff8c00;
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+.achievement-item p {
+  color: #ccc;
 }
 
 /* =============================== */
 /* ========== Footer ============== */
 /* =============================== */
 
-footer {
+.footer {
   text-align: center;
-  padding: 1rem 0;
+  padding: 2rem 0;
   margin-top: 2rem;
   background-color: #1e1e1e;
 }
 
-/* =============================== */
-/* ========== Utility Classes ====== */
-/* =============================== */
-
-#form-status {
-  margin-top: 1rem;
-  color: #03dac6;
-  font-weight: bold;
+.social-links a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 10px;
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
 }
 
-/* "Back to Top" button */
+.social-links a:hover {
+  color: #ff8c00;
+}
+
 #backToTop {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  background: #aaff00;
-  color: #fff;
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  font-size: 1.2rem;
-  display: none; /* Hidden by default, shown via JS */
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  z-index: 1001;
+    display: none;
 }
