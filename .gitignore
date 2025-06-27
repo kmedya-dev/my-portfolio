@@ -1,1 +1,5 @@
+vnode_modules/
+.env
+*.log
+.DS_Storeiewall.sh
 viewall.sh
