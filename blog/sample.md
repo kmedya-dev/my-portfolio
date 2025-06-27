@@ -1,6 +1,7 @@
 ---
 title: First Blog Post
 date: 2025-06-27
+category: Miscellaneous
 ---
 
 My First Blog Post

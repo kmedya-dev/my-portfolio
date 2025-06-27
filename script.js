@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
     posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
     blogList.innerHTML = posts.map(post => `
-      <div class="blog-post-card" data-title="${post.title}">
+      <div class="blog-post-card" data-title="${post.title}" data-category="${post.category}">
         <img src="https://via.placeholder.com/300x200" alt="${post.title}" />
         <h3>${post.title}</h3>
         <p>${post.content.substring(0, 100)}...</p>
@@ -112,6 +112,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Initial Load ---
   loadBlogPosts();
+
+  // --- Blog Post Filtering ---
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const category = button.dataset.category;
+      
+      // Set active class on button
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+      
+      // Filter posts
+      const blogPosts = document.querySelectorAll('.blog-post-card');
+      blogPosts.forEach(post => {
+        if (category === 'all' || post.dataset.category === category) {
+          post.style.display = 'block';
+        } else {
+          post.style.display = 'none';
+        }
+      });
+    });
+  });
 
   // ===================================================================
   // ======================= CONTACT FORM ============================
