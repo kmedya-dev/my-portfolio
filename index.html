@@ -1,126 +1,119 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Koustava Medya | Portfolio</title>
-  <link rel="icon" href="assets/images/icon.png" sizes="32x32" type="image/png" />
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="container">
-    <header>
-      <h1>Hello, I'm Koustava 👋</h1>
-      <p>Welcome to my personal portfolio website!</p>
-    </header>
+<!DOCTYPE html><html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Koustava Medya's personal portfolio showcasing skills, projects, and blogs."
+    />
+    <meta name="author" content="Koustava Medya" />
+    <meta
+      name="keywords"
+      content="Koustava Medya, Portfolio, Web Developer, Cybersecurity, Blogs, Projects"
+    />
+    <title>Koustava Medya | Portfolio</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="assets/images/icon.png" type="image/png" />
+    <script defer src="script.js"></script>
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <h1 class="logo">Koustava Medya</h1>
+        <button class="menu-toggle" aria-label="Toggle navigation">☰</button>
+        <nav class="nav" id="nav">
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#blog">Blog</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header><main>
+  <section id="hero" class="hero">
+    <div class="container">
+      <h2>Hi, I'm Koustava 👋</h2>
+      <p>M.Sc. Applied Mathematics | Aspiring Developer | Cybersecurity Enthusiast</p>
+      <a href="#projects" class="btn">See My Work</a>
+    </div>
+  </section>
 
-    <nav>
-	    <a href="#blog">Blog</a>
-	    <a href="#resume">My resume</a>
-	    <a href="#projects">Get a project?</a>
-            <a href="#about">About me</a>
-	    <a href="#contact">Contact</a>
-    </nav>
-    
-    <section id="blog">
+  <section id="about" class="about section">
+    <div class="container">
+      <h2>About Me</h2>
+      <p>
+        I’m pursuing M.Sc. in Applied Mathematics from Kalyani University (DODL), passionate about
+        web development and cybersecurity. My B.Sc. background includes Physics, Computer Science,
+        and Mathematics.
+      </p>
+    </div>
+  </section>
+
+  <section id="skills" class="skills section">
+    <div class="container">
+      <h2>Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-card">HTML5</div>
+        <div class="skill-card">CSS3</div>
+        <div class="skill-card">JavaScript</div>
+        <div class="skill-card">Git & GitHub</div>
+        <div class="skill-card">Python</div>
+        <div class="skill-card">Linux</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="projects section">
+    <div class="container">
+      <h2>Projects</h2>
+      <div class="project-card">
+        <h3>My Portfolio</h3>
+        <p>A modern responsive website showcasing my work and blog.</p>
+        <a href="https://kmedya-dev.github.io/my-portfolio/" target="_blank">View Project</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="blog" class="blog section">
+    <div class="container">
       <h2>Blog</h2>
-      <p></p>
-    </section>
-
-    <section id="resume" class="resume-section">
-  <div class="container">
-    <h2>Resume</h2>
-
-    <div class="resume-block">
-      <h3>Education</h3>
-      <ul>
-        <li>
-          <strong>M.Sc. in Applied Mathematics</strong> - Kalyani University (DODL)<br>
-          2024 – Present
-        </li>
-        <li>
-          <strong>B.Sc. (General)</strong> - Bankura University<br>
-          Core: Physics, Computer Science, Mathematics | 2019 – 2022
-        </li>
-      </ul>
-    </div>
-
-    <div class="resume-block">
-      <h3>Experience</h3>
-      <ul>
-        <li>
-          <strong>Freelance Web Developer</strong> <br>
-          2023 – Present <br>
-          Projects: Personal Portfolio, Landing Pages, and Tools using HTML, CSS, JS
-        </li>
-      </ul>
-    </div>
-
-    <div class="resume-block">
-      <h3>Skills</h3>
-      <ul class="skills-list">
-        <li>HTML5</li>
-        <li>CSS3</li>
-        <li>JavaScript</li>
-        <li>Git & GitHub</li>
-        <li>Responsive Design</li>
-        <li>Cybersecurity Basics</li>
-      </ul>
-    </div>
-
-    <div class="resume-block">
-      <h3>Certifications</h3>
-      <ul>
-        <li>Office Automation – NIELIT</li>
-        <li>Cyber Security – CSC Academy</li>
-      </ul>
-    </div>
-  </div>
-  <div class="download-cv">
-  <a href="assets/Koustava_Medya_Resume.pdf" download class="btn-download" target="_blank">
-    Download CV
-  </a>
-</div>
-    </section>
-
-    <section id="projects">
-      <h2>Things I’ve Built</h2>
-      <div class="project">
-        <h3>Project 1</h3>
-        <p># 🌐 My Portfolio Website
-
-A simple personal portfolio website built with HTML, managed via Git using Termux, and hosted on GitHub Pages.</p>
-        <a href="https://github.com/kmedya-dev/my-portfolio">View Project</a>
+      <div id="blog-posts">
+        <!-- Blog posts from markdown will be injected here by script.js -->
       </div>
-      <div class="project">
-        <h3>Project 2</h3>
-        <p>Project coming soon... Stay tuned 👨‍💻</p>
-        <a href="https://github.com/kmedya-dev/project">View Project</a>
-      </div>
-    </section>
+    </div>
+  </section>
 
-<section id="about">
-  <h2>About Me</h2>
-  <img src="assets/koustava.jpg" alt="Koustava Medya smiling in a blue t-shirt" width="200">
-  <p>Hi! I’m Koustava, a freelance web developer...</p>
-</section>
-
-    <section id="contact">
+  <section id="contact" class="contact section">
+    <div class="container">
       <h2>Contact</h2>
-      <ul>
-        <li>Email: <a href="mailto:koustavamedya.2000@gmail.com">koustavamedya.2000@gmail.com</a></li>
-        <li>Portfolio: <a href="https://kmedya-dev.github.io/my-portfolio/">View Site</a></li>
-        <li>GitHub: <a href="https://github.com/kmedya-dev">@kmedya-dev</a></li>
-        <li>LinkedIn: <a href="https://www.linkedin.com/in/kmedya">LinkedIn Profile</a></li>
-        <li>Address: Bankura, West Bengal</li>
-      </ul>
-    </section>
+      <form id="contact-form">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required />
 
-    <footer>
-    © koustava medya | 2025
-    </footer>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required />
 
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+
+        <button type="submit" class="btn">Send</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2025 Koustava Medya. All rights reserved.</p>
+    <div class="social-links">
+      <a href="https://github.com/kmedya-dev" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/username" target="_blank">LinkedIn</a>
+    </div>
+    <button id="backToTop" ...>↑</button>
   </div>
-   <script src="script.js"></script>
-</body>
+</footer>
+
+  </body>
 </html>
