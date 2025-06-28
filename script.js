@@ -86,6 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Sticky Header on Scroll & Autohide ---
   let lastScrollY = window.scrollY;
   let hideHeaderTimeout; // Variable to store the timeout ID
+  const backToTopButton = document.getElementById('backToTop');
 
   const hideHeader = () => {
     header.classList.add('hidden');
@@ -97,8 +98,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (window.scrollY > 50) {
       header.classList.add('scrolled');
+      backToTopButton.style.display = 'block'; // Show back to top button
     } else {
       header.classList.remove('scrolled');
+      backToTopButton.style.display = 'none'; // Hide back to top button
     }
 
     // Logic for showing/hiding based on scroll direction
@@ -121,6 +124,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initial auto-hide if no scroll happens immediately
   hideHeaderTimeout = setTimeout(hideHeader, 3000); // Hide after 3 seconds on initial load if no scroll
+
+  // Back to top button click event
+  if (backToTopButton) {
+    backToTopButton.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 
   // --- Mobile Navigation Toggle ---
   // Toggles the 'active' class on the navigation menu to show/hide it.
@@ -174,15 +184,19 @@ document.addEventListener('DOMContentLoaded', () => {
   // Asynchronously fetches and displays all blog posts.
   const loadBlogPosts = async () => {
     let posts = [];
+    console.log("Attempting to load blog posts...");
 
     for (const file of postFiles) {
       try {
+        console.log(`Fetching blog post: blog/${file}`);
         const res = await fetch(`blog/${file}`);
         if (!res.ok) {
           throw new Error(`Failed to fetch ${file}: ${res.statusText}`);
         }
         const text = await res.text();
+        console.log(`Successfully fetched ${file}. Content length: ${text.length}`);
         const { metadata, content } = parseFrontMatter(text);
+        console.log(`Parsed metadata for ${file}:`, metadata);
         posts.push({ ...metadata, content });
       } catch (error) {
         console.error(`Error loading blog post ${file}:`, error);
@@ -190,6 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+    console.log("Sorted posts:", posts);
 
     blogList.innerHTML = posts.map(post => `
       <div class="blog-post-card" data-title="${post.title}" data-category="${post.category}">
@@ -198,6 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <p>${post.content.substring(0, 100)}...</p>
       </div>
     `).join('');
+    console.log("Blog posts rendered to DOM.");
 
     // Add click listener for expandable blog posts
     document.querySelectorAll('.blog-post-card').forEach(card => {
