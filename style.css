@@ -156,12 +156,30 @@ body {
 
 /* Media query for mobile navigation */
 @media (max-width: 768px) {
-  .nav ul {
-    display: none; /* Hide on mobile by default */
+  .nav {
+    display: none; /* Hide the nav by default */
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    top: 4.375rem; /* 70px */
+    left: 0;
+    background-color: #1e1e1e;
+    border-top: 1px solid #333;
+    padding: 0.625rem 0; /* 10px */
+    max-height: 0; /* Start with 0 height */
+    overflow: hidden; /* Hide overflow */
+    transition: max-height 0.3s ease-out; /* Smooth transition */
   }
 
-  .nav.active ul {
-    display: flex; /* Show when active */
+  .nav.active {
+    display: flex; /* Show the nav when the menu is toggled */
+    max-height: 20rem; /* Max height when active (adjust as needed) */
+    overflow: visible; /* Show content */
+  }
+
+  .nav ul {
+    flex-direction: column;
+    text-align: center;
   }
 
   .menu-toggle {

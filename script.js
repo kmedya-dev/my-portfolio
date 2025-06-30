@@ -28,6 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const nav = document.querySelector('.nav');
   console.log('menuToggle element:', menuToggle);
   console.log('nav element:', nav);
+  console.log('menuToggle element:', menuToggle);
+  console.log('nav element:', nav);
   const contactForm = document.getElementById('contact-form');
   const formStatus = document.getElementById('form-status');
   const sections = document.querySelectorAll('section'); // Select all sections
