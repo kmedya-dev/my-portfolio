@@ -24,14 +24,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Element Selections ---
   const header = document.querySelector('.header');
-  const menuToggle = document.querySelector('.menu-toggle');
+  const menuToggle = document.getElementById('menu-toggle');
   const nav = document.querySelector('.nav');
+  console.log('menuToggle element:', menuToggle);
+  console.log('nav element:', nav);
   const contactForm = document.getElementById('contact-form');
   const formStatus = document.getElementById('form-status');
   const sections = document.querySelectorAll('section'); // Select all sections
   const blogList = document.getElementById('blog-posts'); // Blog posts container
   const achievementsGrid = document.getElementById('achievements-grid'); // Achievements container
-  const sectionTitleDisplay = document.querySelector('.section-title-display');
 
   // --- Data ---
   // List of Markdown files for blog posts.
@@ -42,47 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ===================================================================
 
   // --- Section Title Display on Scroll ---
-  const sectionObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const sectionId = entry.target.id;
-        let title = '';
-        switch (sectionId) {
-          case 'hero':
-            title = 'Home';
-            break;
-          case 'about':
-            title = 'About';
-            break;
-          case 'projects':
-            title = 'Projects';
-            break;
-          case 'blog':
-            title = 'Blog';
-            break;
-          case 'course':
-            title = 'Course';
-            break;
-          case 'achievements':
-            title = 'Achievements & Certifications';
-            break;
-          case 'contact':
-            title = 'Contact';
-            break;
-          default:
-            title = '';
-        }
-        sectionTitleDisplay.textContent = title;
-      }
-    });
-  }, {
-    rootMargin: '-50% 0px -50% 0px', // Trigger when section is in the middle of the viewport
-    threshold: 0
-  });
-
-  sections.forEach(section => {
-    sectionObserver.observe(section);
-  });
+  // Removed section title display logic as the element is no longer present.
 
   // --- Sticky Header on Scroll & Autohide ---
   let lastScrollY = window.scrollY;

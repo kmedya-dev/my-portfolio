@@ -288,9 +288,13 @@ body {
 /* ========== Course Section ======== */
 /* =============================== */
 .course-grid {
-  display: grid;
+  display: none; /* শুরুতে hidden */
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
+}
+
+.course-grid.show {
+  display: grid; /* show ক্লাস দিলে grid হিসেবে দেখাবে */
 }
 
 .course-item {
