@@ -366,8 +366,8 @@ body {
     padding: 0.625rem 0; /* 10px */
   }
 
-  .nav.active {
-    display: flex; /* Show the nav when the menu is toggled */
+  .nav.active ul {
+    display: flex; /* Show when active */
   }
 
   .nav ul {
@@ -593,39 +593,6 @@ h2 {
 }
 
 /* =============================== */
-/* ========== Achievements Section ======== */
-/* =============================== */
-
-.achievement-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-}
-
-.achievement-item {
-  background-color: #1e1e1e;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.achievement-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-}
-
-.achievement-item h3 {
-  color: #ff8c00;
-  margin-top: 0;
-  font-size: 1.5rem;
-}
-
-.achievement-item p {
-  color: #ccc;
-}
-
-/* =============================== */
 /* ========== Contact Section ======== */
 /* =============================== */
 .contact.section {
@@ -742,4 +709,18 @@ h2 {
     cursor: pointer;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     z-index: 999;
+}
+
+.blog-filters .first-filter-btn {
+  margin-left: 0; /* Remove left margin for the first button */
+}
+
+.triangle-menu {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-family: monospace;
+  text-align: right;
+  line-height: 1.2;
+  white-space: pre;
 }

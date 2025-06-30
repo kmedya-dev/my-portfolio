@@ -18,7 +18,8 @@
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Marked.js library to convert Markdown to HTML -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="assets/js/marked.min.js"></script>
+    <!-- IMPORTANT: Please manually download marked.min.js from https://cdn.jsdelivr.net/npm/marked/marked.min.js and place it in the assets/js/ directory. -->
     <!-- Main script file, deferred to load after the document is parsed -->
     <script defer src="script.js"></script>
   </head>
@@ -31,13 +32,13 @@
     <header class="header">
       <div class="container">
         <a href="#" class="logo">Koustava Medya</a>
-        <div class="section-title-display"></div>
+        
         <button class="menu-toggle" aria-label="Toggle navigation">☰</button>
         <nav class="nav" id="nav">
           <ul>
             <li><a href="#about">About</a></li>
             <li><a href="#projects">Projects</a></li>
-            <li><a href="#blog">Blog</a></li>
+            <li><a href="#blog">Blogs</a></li>
             <li><a href="#course">Course</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
@@ -50,34 +51,31 @@
       <!-- Hero Section -->
       <section id="hero" class="hero">
         <div class="container hero-content">
-          <div class="hero-text">
-            <h1>Hello,<br>I'm Koustava</h1>
-            <h2>Web Developer, Ethical Hacker</h2>
-            <div class="hero-buttons">
-              <a href="#projects" class="btn btn-primary" data-text="View a project!">View a project!</a>
-              <a href="assets/Koustava_Medya_Resume.pdf" class="btn btn-secondary" target="_blank" data-text="My resume">My resume</a>
+          <div class="hero-left-content">
+            <div class="hero-text">
+              <h1>Hello,<br>I'm Koustava</h1>
+              <h2>Web Developer, Ethical Hacker</h2>
+              <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary">View a project!</a>
+                <a href="assets/Koustava_Medya_Resume.pdf" class="btn btn-secondary" target="_blank">My resume</a>
+              </div>
             </div>
           </div>
-          <div class="hero-image-container">
-            
+          <div class="hero-right-content">
+            <div class="service-item">
+              <h3>Web Development</h3>
+            </div>
+            <div class="service-item">
+              <h3>Web Hosting</h3>
+            </div>
+            <div class="service-item">
+              <h3>Penetration Testing</h3>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- Services Section -->
-      <section id="services" class="services section">
-        <div class="container">
-          <div class="service-item">
-            <h3>"Web Development"</h3>
-          </div>
-          <div class="service-item">
-            <h3>"Web Hosting"</h3>
-          </div>
-          <div class="service-item">
-            <h3>Penetration Testing</h3>
-          </div>
-        </div>
-      </section>
+      
 
 
 
@@ -137,27 +135,8 @@
       <section id="achievements" class="achievements section">
         <div class="container">
           <h2>Achievements & Certifications</h2>
-          <div class="achievement-grid">
-            <div class="achievement-item">
-              <h3>Award/Certification 1</h3>
-              <p>Achieved top honors in the university-level programming competition.</p>
-            </div>
-            <div class="achievement-item">
-              <h3>Award/Certification 2</h3>
-              <p>Completed an advanced cybersecurity training program with distinction.</p>
-            </div>
-            <div class="achievement-item">
-              <h3>Award/Certification 3</h3>
-              <p>Recognized for outstanding contribution to open-source project.</p>
-            </div>
-            <div class="achievement-item">
-              <h3>Award/Certification 4</h3>
-              <p>Successfully completed a challenging data science bootcamp.</p>
-            </div>
-            <div class="achievement-item">
-              <h3>Award/Certification 5</h3>
-              <p>Presented research paper at a national technology conference.</p>
-            </div>
+          <div class="achievement-grid" id="achievements-grid">
+            <!-- Achievements will be injected here by script.js -->
           </div>
 
           
@@ -172,20 +151,20 @@
             <div class="project-card">
               <img src="https://via.placeholder.com/300x200" alt="Project 1" />
               <h3>Project Title 1</h3>
-              <p>Short description of Project 1.</p>
-              <a href="#" target="_blank" class="btn btn-secondary" data-text="View Project">View Project</a>
+              <p>Coming soon...</p>
+              <a href="#" target="_blank" class="btn btn-secondary">View Project</a>
             </div>
             <div class="project-card">
               <img src="https://via.placeholder.com/300x200" alt="Project 2" />
               <h3>Project Title 2</h3>
-              <p>Short description of Project 2.</p>
-              <a href="#" target="_blank" class="btn btn-secondary" data-text="View Project">View Project</a>
+              <p>Coming soon...</p>
+              <a href="#" target="_blank" class="btn btn-secondary">View Project</a>
             </div>
             <div class="project-card">
               <img src="https://via.placeholder.com/300x200" alt="Project 3" />
               <h3>Project Title 3</h3>
-              <p>Short description of Project 3.</p>
-              <a href="#" target="_blank" class="btn btn-secondary" data-text="View Project">View Project</a>
+              <p>Coming soon...</p>
+              <a href="#" target="_blank" class="btn btn-secondary">View Project</a>
             </div>
             <!-- Current Portfolio Project -->
             <div class="project-card">
@@ -203,7 +182,7 @@
         <div class="container">
           <h2>Blog</h2>
           <div class="blog-filters">
-            <button class="filter-btn active" data-category="all">All</button>
+            <button class="filter-btn active first-filter-btn" data-category="all">All</button>
             <button class="filter-btn" data-category="AI">AI</button>
             <button class="filter-btn" data-category="Web Development">Web Development</button>
             <button class="filter-btn" data-category="Miscellaneous">Miscellaneous</button>
@@ -259,14 +238,19 @@
     <!-- ================== FOOTER ================== -->
     <footer class="footer">
       <div class="container">
-        <p>&copy; 2025 Koustava Medya. All rights reserved.</p>
+        <p>&copy; <span id="copyright-year"></span> Koustava Medya. All rights reserved.</p>
         <div class="social-links">
           <a href="https://github.com/kmedya-dev" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
           <a href="https://www.linkedin.com/in/username" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
           <a href="https://www.instagram.com/kmedya_a01" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
         </div>
-        <button id="backToTop" ...>↑</button>
+        <button id="backToTop">↑</button>
       </div>
       </footer>
+    <script>
+      document.getElementById('copyright-year').textContent = new Date().getFullYear();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+    <script>eruda.init();</script>
   </body>
 </html>

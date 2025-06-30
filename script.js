@@ -30,11 +30,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const formStatus = document.getElementById('form-status');
   const sections = document.querySelectorAll('section'); // Select all sections
   const blogList = document.getElementById('blog-posts'); // Blog posts container
+  const achievementsGrid = document.getElementById('achievements-grid'); // Achievements container
   const sectionTitleDisplay = document.querySelector('.section-title-display');
 
   // --- Data ---
   // List of Markdown files for blog posts.
-  const postFiles = ['sample.md', 'web-dev-tools.md', 'ai-vs-coding.md'];
+  const postFiles = ['sample-blog.md', 'web-dev-tools.md', 'ai-vs-coding.md'];
 
   // ===================================================================
   // =================== INTERACTIVE UI FEATURES =======================
@@ -189,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
     for (const file of postFiles) {
       try {
         console.log(`Fetching blog post: blog/${file}`);
-        const res = await fetch(`blog/${file}`);
+        const res = await fetch(`blogs/${file}`);
         if (!res.ok) {
           throw new Error(`Failed to fetch ${file}: ${res.statusText}`);
         }
@@ -228,6 +229,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Initial Load ---
   loadBlogPosts();
+
+  // ===================================================================
+  // ======================= CERTIFICATIONS LOADER =====================
+  // ===================================================================
+
+  const loadCertifications = async () => {
+    try {
+      const res = await fetch('assets/js/certifications.json');
+      if (!res.ok) {
+        const errorText = `Failed to fetch certifications: ${res.status} ${res.statusText}`;
+        console.error(errorText);
+        throw new Error(errorText);
+      }
+      const certifications = await res.json();
+      console.log("Successfully fetched certifications:", certifications);
+
+      achievementsGrid.innerHTML = certifications.map(cert => `
+        <div class="achievement-item">
+          <h3>${cert.title}</h3>
+          <p><strong>Issuer:</strong> ${cert.issuer}</p>
+          <p><strong>Issued:</strong> ${cert.issuedDate}</p>
+          ${cert.credentialId ? `<p><strong>Credential ID:</strong> ${cert.credentialId}</p>` : ''}
+          ${cert.verificationUrl ? `<p><a href="${cert.verificationUrl}" target="_blank" class="btn btn-secondary">Verify Credential</a></p>` : ''}
+          ${cert.skills && cert.skills.length > 0 ? `<p><strong>Skills:</strong> ${cert.skills.join(', ')}</p>` : ''}
+        </div>
+      `).join('');
+      console.log("Certifications rendered to DOM.");
+
+    } catch (error) {
+      console.error("Error loading certifications:", error);
+    }
+  };
+
+  loadCertifications();
 
   // --- Blog Post Filtering ---
   const filterButtons = document.querySelectorAll('.filter-btn');
