@@ -8,7 +8,7 @@
 // 3.  A simple contact form handler.
 // 4.  Dynamic blog post loading and display.
 
-console.log("Hello from script.js 👋");
+
 
 document.addEventListener('DOMContentLoaded', () => {
   // --- Splash Screen Logic ---
@@ -26,19 +26,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('.header');
   const menuToggle = document.getElementById('menu-toggle');
   const nav = document.querySelector('.nav');
-  console.log('menuToggle element:', menuToggle);
-  console.log('nav element:', nav);
-  console.log('menuToggle element:', menuToggle);
-  console.log('nav element:', nav);
+  const closeMenuBtn = document.getElementById('close-menu-btn');
   const contactForm = document.getElementById('contact-form');
   const formStatus = document.getElementById('form-status');
   const sections = document.querySelectorAll('section'); // Select all sections
   const blogList = document.getElementById('blog-posts'); // Blog posts container
   const achievementsGrid = document.getElementById('achievements-grid'); // Achievements container
-
-  // --- Data ---
-  // List of Markdown files for blog posts.
-  const postFiles = ['sample-blog.md', 'web-dev-tools.md', 'ai-vs-coding.md'];
 
   // ===================================================================
   // =================== INTERACTIVE UI FEATURES =======================
@@ -102,6 +95,12 @@ document.addEventListener('DOMContentLoaded', () => {
     nav.classList.toggle('active');
   });
 
+  if (closeMenuBtn) {
+    closeMenuBtn.addEventListener('click', () => {
+      nav.classList.remove('active'); // Close the menu
+    });
+  }
+
   // --- Section Animation on Scroll ---
   // Uses IntersectionObserver to add a 'visible' class to sections when they enter the viewport.
   // This triggers a fade-in animation defined in style.css.
@@ -121,73 +120,35 @@ document.addEventListener('DOMContentLoaded', () => {
   // ======================= BLOG POST LOADER ==========================
   // ===================================================================
 
-  // --- Front Matter Parser ---
-  // A robust parser to extract metadata (like title, date) from the top of a Markdown file.
-  // Metadata is expected to be in YAML format, enclosed by '---'.
-  const parseFrontMatter = (text) => {
-    const match = text.match(/^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/);
-    if (!match) {
-      return { metadata: {}, content: text };
-    }
-
-    const [, meta, content] = match;
-    const lines = meta.trim().split('\n');
-    const metadata = {};
-    lines.forEach(line => {
-      const i = line.indexOf(':');
-      if (i > 0) {
-        const key = line.slice(0, i).trim();
-        const value = line.slice(i + 1).trim();
-        metadata[key] = value;
-      }
-    });
-    return { metadata, content: content.trim() };
-  };
-
   // --- Blog Post Loader ---
-  // Asynchronously fetches and displays all blog posts.
+  // Asynchronously fetches and displays all blog posts from JSON.
   const loadBlogPosts = async () => {
-    let posts = [];
-    console.log("Attempting to load blog posts...");
-
-    for (const file of postFiles) {
-      try {
-        console.log(`Fetching blog post: blog/${file}`);
-        const res = await fetch(`blogs/${file}`);
-        if (!res.ok) {
-          throw new Error(`Failed to fetch ${file}: ${res.statusText}`);
-        }
-        const text = await res.text();
-        console.log(`Successfully fetched ${file}. Content length: ${text.length}`);
-        const { metadata, content } = parseFrontMatter(text);
-        console.log(`Parsed metadata for ${file}:`, metadata);
-        posts.push({ ...metadata, content });
-      } catch (error) {
-        console.error(`Error loading blog post ${file}:`, error);
+    try {
+      const res = await fetch('assets/js/blog-posts.json');
+      if (!res.ok) {
+        throw new Error(`Failed to fetch blog posts: ${res.status} ${res.statusText}`);
       }
-    }
+      const posts = await res.json();
 
-    posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-    console.log("Sorted posts:", posts);
+      
 
-    blogList.innerHTML = posts.map(post => `
-      <div class="blog-post-card" data-title="${post.title}" data-category="${post.category}">
-        <img src="https://via.placeholder.com/300x200" alt="${post.title}" />
-        <h3>${post.title}</h3>
-        <p>${post.content.substring(0, 100)}...</p>
-      </div>
-    `).join('');
-    console.log("Blog posts rendered to DOM.");
+      blogList.innerHTML = posts.map(post => `
+        <div class="blog-post-card" data-title="${post.title}" data-category="${post.category}">
+          <img src="${post.image}" alt="Blog post thumbnail for ${post.title}" onerror="this.style.visibility='hidden'; this.style.width='0'; this.style.height='0';" />
+          <h3>${post.title}</h3>
+          <p>${post.content.substring(0, 100)}...</p>
+        </div>
+      `).join('');
 
-    // Add click listener for expandable blog posts
-    document.querySelectorAll('.blog-post-card').forEach(card => {
-      card.addEventListener('click', (e) => {
-        const title = e.currentTarget.dataset.title;
-        console.log(`Clicked on blog post: ${title}. Full content would be displayed here.`);
-        // In a real implementation, you would open a modal or navigate to a new page
-        // to display the full blog post content.
+      // Add click listener for expandable blog posts
+      document.querySelectorAll('.blog-post-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+          
+        });
       });
-    });
+    } catch (error) {
+      
+    }
   };
 
   // --- Initial Load ---
@@ -202,11 +163,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const res = await fetch('assets/js/certifications.json');
       if (!res.ok) {
         const errorText = `Failed to fetch certifications: ${res.status} ${res.statusText}`;
-        console.error(errorText);
+        
         throw new Error(errorText);
       }
       const certifications = await res.json();
-      console.log("Successfully fetched certifications:", certifications);
+      
 
       achievementsGrid.innerHTML = certifications.map(cert => `
         <div class="achievement-item">
@@ -218,10 +179,10 @@ document.addEventListener('DOMContentLoaded', () => {
           ${cert.skills && cert.skills.length > 0 ? `<p><strong>Skills:</strong> ${cert.skills.join(', ')}</p>` : ''}
         </div>
       `).join('');
-      console.log("Certifications rendered to DOM.");
+      
 
     } catch (error) {
-      console.error("Error loading certifications:", error);
+      
     }
   };
 
@@ -288,7 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
       } catch (error) {
         formStatus.textContent = 'Oops! There was a network error.';
         formStatus.style.color = '#ff0000'; // Red for error
-        console.error('Network error:', error);
+        
       }
     });
   }

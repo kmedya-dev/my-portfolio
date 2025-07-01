@@ -154,6 +154,22 @@ body {
   cursor: pointer;
 }
 
+#close-menu-btn {
+  display: none; /* Hidden by default on larger screens */
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0.625rem 1.25rem; /* 10px 20px */
+  width: 100%;
+  text-align: center;
+}
+
+#close-menu-btn:hover {
+  color: #ff8c00;
+}
+
 /* Media query for mobile navigation */
 @media (max-width: 768px) {
   .nav {
@@ -182,7 +198,15 @@ body {
     text-align: center;
   }
 
+  .nav li {
+    margin: 0.625rem 0; /* 10px */
+  }
+
   .menu-toggle {
+    display: block; /* Show on mobile */
+  }
+
+  #close-menu-btn {
     display: block; /* Show on mobile */
   }
 }
@@ -302,17 +326,18 @@ body {
   color: #ff8c00;
 }
 
+
+
 /* =============================== */
 /* ========== Course Section ======== */
 /* =============================== */
-.course-grid {
-  display: none; /* শুরুতে hidden */
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
+#course {
+  display: none; /* Hidden by default */
 }
 
-.course-grid.show {
-  display: grid; /* show ক্লাস দিলে grid হিসেবে দেখাবে */
+.course-grid {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
 }
 
 .course-item {
@@ -515,6 +540,16 @@ h2 {
 
 /* =============================== */
 /* ========== Blog Section ======== */
+#blog {
+  display: none;
+}
+
+/* Hide alt text for broken images */
+img:not([src]):not([srcset]),
+img[src=""] {
+  font-size: 0;
+  color: transparent;
+}
 /* =============================== */
 
 .blog-grid {
