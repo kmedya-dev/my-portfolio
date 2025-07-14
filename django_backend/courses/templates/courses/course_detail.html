@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ course.title }}{% endblock %}
+
+{% block content %}
+<h1>{{ course.title }}</h1>
+<p>{{ course.description }}</p>
+{% if course.link %}
+<p><a href="{{ course.link }}" target="_blank">View Course</a></p>
+{% endif %}
+{% endblock %}
