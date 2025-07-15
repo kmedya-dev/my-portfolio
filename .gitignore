@@ -3,4 +3,4 @@ vnode_modules/
 *.log
 .DS_Storeiewall.sh
 viewall.sh
-django_backend/
+my_portfolio-fullstack/
