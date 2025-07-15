@@ -4,9 +4,22 @@
 
 {% block content %}
 <h1>{{ post.title }}</h1>
-<p>Published: {{ post.pub_date }}</p>
+<p>Published: {{ post.pub_date|date:"F d, Y" }}</p>
+{% if post.category %}
 <p>Category: {{ post.category }}</p>
+{% endif %}
+
 <div>
+    {% if post.gist_id %}
+    <h2>Gist Content:</h2>
+    <script src="https://gist.github.com/{{ post.gist_id }}.js"></script>
+    <noscript>
+        <pre><code>{{ post.gist_content }}</code></pre>
+    </noscript>
+    {% elif post.content %}
     {{ post.content|safe }}
+    {% else %}
+    <p>No content available for this blog post.</p>
+    {% endif %}
 </div>
 {% endblock %}

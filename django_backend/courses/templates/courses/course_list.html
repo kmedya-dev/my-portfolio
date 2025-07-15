@@ -3,10 +3,22 @@
 {% block title %}Courses{% endblock %}
 
 {% block content %}
-<h1>Courses</h1>
-<ul>
-    {% for course in courses %}
-    <li><a href="{% url 'course_detail' course.pk %}">{{ course.title }}</a></li>
-    {% endfor %}
-</ul>
+<section id="courses-list" class="course section">
+    <div class="container">
+        <h2>All Courses</h2>
+        <div class="course-grid">
+            {% for course in courses %}
+            <div class="course-item">
+                <h3><a href="{% url 'course_detail' course.pk %}">{{ course.title }}</a></h3>
+                <p>{{ course.description }}</p>
+                {% if course.link %}
+                <p><a href="{{ course.link }}" target="_blank">View Course</a></p>
+                {% endif %}
+            </div>
+            {% empty %}
+            <p>No courses available yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 {% endblock %}

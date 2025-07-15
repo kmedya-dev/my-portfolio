@@ -3,10 +3,25 @@
 {% block title %}Blog{% endblock %}
 
 {% block content %}
-<h1>Blog Posts</h1>
-<ul>
-    {% for post in posts %}
-    <li><a href="{% url 'blog_detail' post.slug %}">{{ post.title }}</a></li>
-    {% endfor %}
-</ul>
+<section id="blog-list" class="blog section">
+    <div class="container">
+        <h2>All Blog Posts</h2>
+        <div class="blog-grid">
+            {% for post in posts %}
+            <div class="blog-post-card">
+                <h3><a href="{% url 'blog_detail' post.slug %}">{{ post.title }}</a></h3>
+                <p class="blog-date">{{ post.pub_date|date:"F d, Y" }}</p>
+                {% if post.content %}
+                <p>{{ post.content|truncatechars:200 }}</p>
+                {% elif post.gist_content %}
+                <p>{{ post.gist_content|truncatechars:200 }}</p>
+                {% endif %}
+                <a href="{% url 'blog_detail' post.slug %}" class="read-more">Read More</a>
+            </div>
+            {% empty %}
+            <p>No blog posts available yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 {% endblock %}

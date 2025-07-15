@@ -1,0 +1,41 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.log
+*.sqlite3
+*.db
+*.env
+
+# --- Virtual Environment ---
+venv/
+env/
+ENV/
+
+# --- VS Code / PyCharm ---
+.vscode/
+.idea/
+
+# --- OS generated files ---
+.DS_Store
+Thumbs.db
+
+# --- Django specific ---
+db.sqlite3
+*.pot
+*.pyc
+
+# --- Byte-compiled / packages ---
+*.egg
+*.egg-info/
+dist/
+build/
+
+# --- Git ignore helpers ---
+!.gitignore
+
+# --- Migrations (optional, unless keeping in VCS) ---
+*/migrations/*.py
+*/migrations/*.pyc
+
+# --- Secret keys file (optional) ---
+secrets.json

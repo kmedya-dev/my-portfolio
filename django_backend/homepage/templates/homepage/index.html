@@ -1,295 +1,161 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Koustava Medya's personal portfolio showcasing skills, projects, and blogs."
-    />
-    <meta name="author" content="Koustava Medya" />
-    <meta
-      name="keywords"
-      content="Koustava Medya, Portfolio, Web Developer, Cybersecurity, Blogs, Projects"
-    />
-    <title>Koustava Medya | Portfolio</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-    <link rel="icon" href="{% static 'assets/images/icon.png' %}" type="image/png" />
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Marked.js library to convert Markdown to HTML -->
-    <script src="{% static 'assets/js/marked.min.js' %}"></script>
-    <!-- IMPORTANT: Please manually download marked.min.js from https://cdn.jsdelivr.net/npm/marked/marked.min.js and place it in the assets/js/ directory. -->
-    <!-- Main script file, deferred to load after the document is parsed -->
-    <script defer src="{% static 'js/script.js' %}"></script>
-  </head>
-  <body>
-    <div id="splash-screen">
-      <div class="splash-logo">KM</div>
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Hero Section -->
+<section id="hero" class="hero">
+  <div class="container hero-content-wrapper">
+    <!-- Left: Welcome Text and Buttons -->
+    <div class="hero-left">
+      <h1 class="hero-title">{{ welcome_message.title|default:"👋 Hello there, I’m Koustava Medya" }}</h1>
+      <p class="hero-subtitle">{{ welcome_message.subtitle|default:"An Applied Mathematics student with a creative tech spark!" }}</p>
+      <div class="hero-buttons-wrapper">
+        {% if welcome_message.button_text_1 and welcome_message.button_link_1 %}
+        <a href="{{ welcome_message.button_link_1 }}" class="btn btn-primary">{{ welcome_message.button_text_1 }}</a>
+        {% endif %}
+        {% if welcome_message.button_text_2 and welcome_message.button_link_2 %}
+        <a href="{{ welcome_message.button_link_2 }}" class="btn btn-secondary">{{ welcome_message.button_text_2 }}</a>
+        {% endif %}
+      </div>
     </div>
 
-    <!-- ================== HEADER ================== -->
-    <header class="header">
-      <div class="container">
-        <a href="#" class="logo">Koustava Medya</a>
-        
-                <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">☰</button>
-        <nav class="nav" id="nav">
-          <ul>
-            <li><a href="{% url 'home' %}#about">About</a></li>
-            <li><a href="{% url 'project_list' %}">Projects</a></li>
-            <li><a href="{% url 'blog_list' %}">Blogs</a></li>
-            <li><a href="{% url 'course_list' %}">Course</a></li>
-            <li><a href="{% url 'home' %}#contact">Contact</a></li>
-            <li><button id="close-menu-btn" aria-label="Close menu">×</button></li>
-          </ul>
-        </nav>
+    <!-- Right: Services Grid -->
+    <div class="hero-right">
+      <div class="services-grid">
+        {% if welcome_message.service_item_1 %}
+        <div class="service-item"><span>{{ welcome_message.service_item_1 }}</span></div>
+        {% endif %}
+        {% if welcome_message.service_item_2 %}
+        <div class="service-item"><span>{{ welcome_message.service_item_2 }}</span></div>
+        {% endif %}
+        {% if welcome_message.service_item_3 %}
+        <div class="service-item"><span>{{ welcome_message.service_item_3 }}</span></div>
+        {% endif %}
       </div>
-    </header>
+    </div>
+  </div>
+</section>
 
-    <!-- ================== MAIN CONTENT ================== -->
-    <main>
-      <!-- Hero Section -->
-      <section id="hero" class="hero">
-        <div class="container hero-content">
-          <div class="hero-left-content">
-            <div class="hero-text">
-              <h1>{{ welcome_message.title|default:"Hello, I'm Koustava" }}</h1>
-              <h2>{{ welcome_message.subtitle|default:"Web Developer, Ethical Hacker" }}</h2>
-              <div class="hero-buttons">
-                {% if welcome_message.button_text_1 and welcome_message.button_link_1 %}
-                <a href="{{ welcome_message.button_link_1 }}" class="btn btn-primary">{{ welcome_message.button_text_1 }}</a>
-                {% endif %}
-                {% if welcome_message.button_text_2 and welcome_message.button_link_2 %}
-                <a href="{{ welcome_message.button_link_2 }}" class="btn btn-secondary" target="_blank">{{ welcome_message.button_text_2 }}</a>
-                {% endif %}
-              </div>
-            </div>
-          </div>
-          <div class="hero-right-content">
-            {% if welcome_message.service_item_1 %}
-            <div class="service-item">
-              <h3>{{ welcome_message.service_item_1 }}</h3>
-            </div>
-            {% endif %}
-            {% if welcome_message.service_item_2 %}
-            <div class="service-item">
-              <h3>{{ welcome_message.service_item_2 }}</h3>
-            </div>
-            {% endif %}
-            {% if welcome_message.service_item_3 %}
-            <div class="service-item">
-              <h3>{{ welcome_message.service_item_3 }}</h3>
-            </div>
-            {% endif %}
-          </div>
-        </div>
-      </section>
+<!-- About section -->
+<section id="about" class="about section">
+  <div class="container">
+    <h2>About Me</h2>
+    {% if about %}
+    <p>{{ about.content }}</p>
+    <div class="hero-image-container">
+      <img src="/media/about/1000076324.webp" alt="About Image" class="hero-image" />
+    </div>
+    {% else %}
+    <p>🧠 I'm a curious learner and a problem solver — more details coming soon!</p>
+    {% endif %}
+  </div>
+</section>
 
-      <!-- Experience Section -->
-      <section id="experience" class="experience section">
-        <div class="container">
-          <h2>Experience</h2>
-          <div class="experience-grid">
-            {% for experience in experiences %}
-            <div class="experience-item">
-              <h3>{{ experience.title }}</h3>
-              <p class="company">{{ experience.company }}</p>
-              <p class="duration">{{ experience.start_date|date:"F Y" }} - {% if experience.end_date %}{{ experience.end_date|date:"F Y" }}{% else %}Present{% endif %}</p>
-              <p>{{ experience.description }}</p>
-            </div>
-            {% empty %}
-            <p>No experience added yet.</p>
-            {% endfor %}
-          </div>
-        </div>
-      </section>
+<!-- Tech Stack Section -->
+<section id="tech-stack" class="tech-stack section">
+  <div class="container">
+    <h2>My Tech Stack</h2>
+    <ul class="tech-stack-list">
+      {% for skill in skills %}
+      <li>{{ skill.name }}</li>
+      {% empty %}
+      <li>🧰 Currently adding tools from my toolbox... stay tuned!</li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
 
-      <!-- Course Section -->
-      <section id="course" class="course section">
-        <div class="container">
-          <h2>My Courses</h2>
-          <div class="course-grid">
-            {% for course in courses %}
-            <div class="course-item">
-              <h3><a href="{% url 'course_detail' course.pk %}">{{ course.title }}</a></h3>
-              <p>{{ course.description }}</p>
-            </div>
-            {% empty %}
-            <p>No courses added yet.</p>
-            {% endfor %}
-          </div>
-        </div>
-      </section>
-      <section id="about" class="about section">
-        <div class="container">
-          <h2>About Me</h2>
-          {% if about %}
-          <p>{{ about.content }}</p>
-          {% if about.image %}
-          <div class="hero-image-container">
-            <img src="{{ about.image.url }}" alt="{{ about.title }}" class="hero-image" />
-          </div>
-          {% endif %}
-          {% else %}
-          <p>About content coming soon.</p>
-          {% endif %}
-        </div>
-      </section>
-
-      <!-- Tech Stack Section -->
-      <section id="tech-stack" class="tech-stack section">
-        <div class="container">
-          <h2>My Tech Stack</h2>
-          <ul class="tech-stack-list">
-            {% for skill in skills %}
-            <li>{{ skill.name }}</li>
-            {% empty %}
-            <li>No skills added yet.</li>
-            {% endfor %}
-          </ul>
-        </div>
-      </section>
-
-      <!-- Achievements Section -->
-      <section id="achievements" class="achievements section">
-        <div class="container">
-          <h2>Achievements & Certifications</h2>
-          <div class="achievement-grid" id="achievements-grid">
-            {% for achievement in achievements %}
-            <div class="achievement-item">
-              <h3>{{ achievement.title }}</h3>
-              {% if achievement.date %}
-              <p class="achievement-date">{{ achievement.date|date:"F Y" }}</p>
-              {% endif %}
-              {% if achievement.description %}
-              <p>{{ achievement.description }}</p>
-              {% endif %}
-            </div>
-            {% empty %}
-            <p>No achievements added yet.</p>
-            {% endfor %}
-          </div>
-        </div>
-      </section>
-
-      <!-- Projects Section -->
-      <section id="projects" class="projects section">
-        <div class="container">
-          <h2>Projects</h2>
-          <div class="project-grid">
-            {% for project in projects %}
-            <div class="project-card">
-              {% if project.image %}
-              <img src="{{ project.image.url }}" alt="Thumbnail for {{ project.title }} project" />
-              {% endif %}
-              <h3>{{ project.title }}</h3>
-              <p>{{ project.description }}</p>
-              {% if project.link %}
-              <a href="{{ project.link }}" target="_blank" class="btn btn-secondary">View Project</a>
-              {% endif %}
-              {% if project.github_link %}
-              <a href="{{ project.github_link }}" target="_blank" class="btn btn-secondary">GitHub</a>
-              {% endif %}
-            </div>
-            {% empty %}
-            <p>No projects added yet.</p>
-            {% endfor %}
-          </div>
-        </div>
-      </section>
-
-      <!-- Blog Section -->
-      <section id="blog" class="blog section">
-        <div class="container">
-          <h2>Blog</h2>
-          <div class="blog-grid" id="blog-posts">
-            {% for post in blog_posts %}
-            <div class="blog-post-card">
-              <h3><a href="{% url 'blog_detail' post.slug %}">{{ post.title }}</a></h3>
-              <p class="blog-date">{{ post.pub_date|date:"F d, Y" }}</p>
-              <p>{{ post.content|truncatechars:200 }}</p>
-              <a href="{% url 'blog_detail' post.slug %}" class="read-more">Read More</a>
-            </div>
-            {% empty %}
-            <p>No blog posts added yet.</p>
-            {% endfor %}
-          </div>
-        </div>
-      </section>
-
-      <!-- Contact Section -->
-      <section id="contact" class="contact section">
-        <div class="container">
-          <h2>Get In Touch</h2>
-          <p class="contact-description">Have a sweet project in mind or just want to say hi? Feel free to send me a message!</p>
-          
-          {% if contact %}
-          <form id="contact-form" action="{{ contact.formspree_url|default:'https://formspree.io/f/example-form-id' }}" method="POST" class="contact-form-grid">
-            <!-- IMPORTANT: Replace "example-form-id" with your actual Formspree form ID -->
-            <div>
-              <label for="name" class="form-label">Name</label>
-              <input type="text" id="name" name="name" required
-                     class="form-input" />
-            </div>
-
-            <div>
-              <label for="email" class="form-label">Email</label>
-              <input type="email" id="email" name="email" required
-                     class="form-input" />
-            </div>
-
-            <div>
-              <label for="subject" class="form-label">Subject</label>
-              <input type="text" id="subject" name="subject" required
-                     class="form-input" />
-            </div>
-
-            <div>
-              <label for="message" class="form-label">Message</label>
-              <textarea id="message" name="message" rows="4" required
-                        class="form-input"></textarea>
-            </div>
-
-            <button type="submit"
-                    class="form-submit-btn" data-text="Send Message">
-               Send Message
-            </button>
-          </form>
-          <div id="form-status"></div>
-          {% else %}
-          <p>Contact information coming soon.</p>
-          {% endif %}
-        </div>
-      </section>
-    </main>
-
-    <!-- ================== FOOTER ================== -->
-    <footer class="footer">
-      <div class="container">
-        <p>&copy; <span id="copyright-year"></span> Koustava Medya. All rights reserved.</p>
-        <div class="social-links">
-          <a href="https://github.com/kmedya-dev" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-          <a href="https://www.linkedin.com/in/username" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-          <a href="https://www.instagram.com/kmedya_a01" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        </div>
-        <button id="backToTop">↑</button>
+<!-- Achievements Section -->
+<section id="achievements" class="achievements section">
+  <div class="container">
+    <h2>Achievements & Certifications</h2>
+    <div class="achievement-grid" id="achievements-grid">
+      {% for achievement in achievements %}
+      <div class="achievement-item">
+        <h3>{{ achievement.title }}</h3>
+        {% if achievement.date %}
+        <p class="achievement-date">{{ achievement.date|date:"F Y" }}</p>
+        {% endif %}
+        {% if achievement.description %}
+        <p>{{ achievement.description }}</p>
+        {% endif %}
       </div>
-      </footer>
-    <script>
-        document.getElementById('copyright-year').textContent = new Date().getFullYear();
+      {% empty %}
+      <p>🎖️ Earning badges of honor soon... watch this space!</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
 
-        // Smooth scroll for navigation links
-        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
+<!-- Projects Section -->
+<section id="projects" class="projects section">
+  <div class="container">
+    <h2>Projects</h2>
+    <p>
+      ‍ Initializing project showcase...<br>
+      While the matrix loads, explore my work at
+      <a href="{% url 'project_list' %}">GitHub HQ</a>
+    </p>
+  </div>
+</section>
 
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-      </script>
-  </body>
-</html>
+<!-- Experience Section -->
+<section id="experience" class="experience section">
+  <div class="container">
+    <h2>Experience</h2>
+    <div class="experience-grid">
+      {% for experience in experiences %}
+      <div class="experience-item">
+        <h3>{{ experience.title }}</h3>
+        <p class="company">{{ experience.company }}</p>
+        <p class="duration">{{ experience.start_date|date:"F Y" }} - {% if experience.end_date %}{{ experience.end_date|date:"F Y" }}{% else %}Present{% endif %}</p>
+        <p>{{ experience.description }}</p>
+      </div>
+      {% empty %}
+      <p>
+        <strong>No formal experience at this time.</strong>
+        <br> 🛠️ Hands-on skills in progress. Stay tuned!
+      </p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="contact section">
+  <div class="container">
+    <h2>Get In Touch</h2>
+    <p class="contact-description">🚀 Have a cool idea or just want to connect? I’d love to hear from you.</p>
+
+    {% if contact %}
+    <form id="contact-form" action="{{ contact.formspree_url|default:'https://formspree.io/f/example-form-id' }}" method="POST" class="contact-form-grid">
+      <div>
+        <label for="name" class="form-label">Name</label>
+        <input type="text" id="name" name="name" required class="form-input" />
+      </div>
+
+      <div>
+        <label for="email" class="form-label">Email</label>
+        <input type="email" id="email" name="email" required class="form-input" />
+      </div>
+
+      <div>
+        <label for="subject" class="form-label">Subject</label>
+        <input type="text" id="subject" name="subject" required class="form-input" />
+      </div>
+
+      <div>
+        <label for="message" class="form-label">Message</label>
+        <textarea id="message" name="message" rows="4" required class="form-input"></textarea>
+      </div>
+
+      <button type="submit" class="form-submit-btn" data-text="Send Message">
+        Send Message
+      </button>
+    </form>
+    <div id="form-status"></div>
+    {% else %}
+    <p>📬 Contact form will be activated soon. Stay tuned!</p>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}
