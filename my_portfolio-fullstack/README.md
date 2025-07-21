@@ -40,6 +40,26 @@ A personal portfolio website built with Django, showcasing projects, blog posts,
 - **Deployment**:
     - Render
 
+## Project Structure
+
+```
+my_portfolio-fullstack/
+├── blog/                 # Django app for blog posts
+├── courses/              # Django app for courses/certifications
+├── homepage/             # Django app for the main landing page
+├── my_portfolio_backend/ # Main Django project settings, URLs, WSGI
+├── projects/             # Django app for portfolio projects
+├── staticfiles/          # Collected static files for deployment
+├── media/                # User-uploaded media files
+├── venv/                 # Python virtual environment
+├── manage.py             # Django's command-line utility
+├── requirements.txt      # Python dependencies
+├── build.sh              # Script for Render build process
+├── render.yaml           # Render deployment blueprint
+├── runtime.txt           # Specifies Python version for deployment
+└── README.md             # Project README file
+```
+
 ## Setup (Local Development)
 
 Follow these steps to get your development environment running:
