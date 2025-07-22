@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from .models import WelcomeMessage, About, Skill, Achievement, Experience, Contact
 
 def home(request):
@@ -18,3 +19,6 @@ def home(request):
         'contact': contact,
     }
     return render(request, 'homepage/index.html', context)
+
+def health_check(request):
+    return HttpResponse("OK", status=200)
