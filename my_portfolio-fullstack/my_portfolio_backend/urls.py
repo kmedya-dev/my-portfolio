@@ -20,6 +20,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
 from .sitemaps import StaticViewSitemap, ProjectSitemap, BlogPostSitemap, CourseSitemap
+from django.http import HttpResponse
+
+def health_check(request):
+    return HttpResponse("OK")
 
 sitemaps = {
     'static': StaticViewSitemap,
@@ -30,6 +34,7 @@ sitemaps = {
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', health_check, name='health_check'),
     path('', include('homepage.urls')),
     path('projects/', include('projects.urls')),
     path('blog/', include('blog.urls')),
