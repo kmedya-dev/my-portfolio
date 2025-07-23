@@ -10,7 +10,6 @@ services:
     pythonVersion: "3.12.11"
     buildCommand: "./build.sh"
     startCommand: "gunicorn my_portfolio_backend.wsgi --bind 0.0.0.0:10000"
-    healthCheckPath: /health-check/
     envVars:
       - key: DATABASE_URL
         fromDatabase:
