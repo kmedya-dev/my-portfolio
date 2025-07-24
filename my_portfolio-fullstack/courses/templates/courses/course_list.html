@@ -10,7 +10,7 @@
             {% for course in courses %}
             <div class="course-item">
                 <h3><a href="{% url 'course_detail' course.pk %}">{{ course.title }}</a></h3>
-                <p>{{ course.description }}</p>
+                <p>{{ course.description|safe }}</p>
                 {% if course.link %}
                 <p><a href="{{ course.link }}" target="_blank">View Course</a></p>
                 {% endif %}
