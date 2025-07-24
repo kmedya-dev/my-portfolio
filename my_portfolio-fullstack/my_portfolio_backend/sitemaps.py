@@ -7,7 +7,7 @@ from courses.models import Course
 
 class StaticViewSitemap(Sitemap):
     priority = 0.8
-    changefreq = 'daily'
+    changefreq = 'monthly'
 
     def items(self):
         return ['home', 'project_list', 'blog_list', 'course_list']
@@ -17,18 +17,17 @@ class StaticViewSitemap(Sitemap):
 
 class ProjectSitemap(Sitemap):
     priority = 0.6
-    changefreq = 'weekly'
+    changefreq = 'monthly'
 
     def items(self):
         return Project.objects.all()
 
     def lastmod(self, obj):
-        # Assuming projects don't have a last modified field, you can add one if needed
-        return None
+        return obj.updated_at
 
 class BlogPostSitemap(Sitemap):
     priority = 0.7
-    changefreq = 'daily'
+    changefreq = 'weekly'
 
     def items(self):
         return BlogPost.objects.all()
@@ -38,11 +37,10 @@ class BlogPostSitemap(Sitemap):
 
 class CourseSitemap(Sitemap):
     priority = 0.5
-    changefreq = 'monthly'
+    changefreq = 'yearly'
 
     def items(self):
         return Course.objects.all()
 
     def lastmod(self, obj):
-        # Assuming courses don't have a last modified field, you can add one if needed
-        return None
+        return obj.updated_at
