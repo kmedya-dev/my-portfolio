@@ -1,11 +1,17 @@
 #!/usr/bin/env bash
 # exit on error
 set -o errexit
+set -x # Enable debugging output
 
 pip install -r requirements.txt
 
 python manage.py collectstatic --no-input
-python manage.py migrate
+
+echo "Running migrations..."
+python manage.py showmigrations # Show migration status before migrating
+sleep 5 # Wait for 5 seconds, in case of database startup delays
+python manage.py migrate --no-input # --no-input to prevent prompts
+python manage.py showmigrations # Show migration status after migrating
 
 # Create superuser non-interactively using environment variables
 # IMPORTANT: Set DJANGO_SUPERUSER_USERNAME, DJANGO_SUPERUSER_EMAIL, DJANGO_SUPERUSER_PASSWORD
