@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Blog{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'blog/css/blog.css' %}">
+{% endblock %}
 
 {% block content %}
 <section id="blog-list" class="blog section">
@@ -9,14 +14,17 @@
         <div class="blog-grid">
             {% for post in posts %}
             <div class="blog-post-card">
-                <h3><a href="{% url 'blog_detail' post.slug %}">{{ post.title }}</a></h3>
-                <p class="blog-date">{{ post.pub_date|date:"F d, Y" }}</p>
-                {% if post.content %}
-                <p>{{ post.content|truncatechars:200 }}</p>
-                {% elif post.gist_content %}
-                <p>{{ post.gist_content|truncatechars:200 }}</p>
+                <h2>{{ post.title }}</h2>
+                {% if post.category %}
+                <span class="blog-category-badge">{{ post.category }}</span>
                 {% endif %}
-                <a href="{% url 'blog_detail' post.slug %}" class="read-more">Read More</a>
+                <p class="blog-date">Published: {{ post.pub_date|date:"F d, Y" }}</p>
+                {% if post.content_fetched %}
+                <p>{{ post.content_fetched|striptags|truncatechars:150 }}</p>
+                {% elif post.content_manual %}
+                <p>{{ post.content_manual|striptags|truncatechars:150 }}</p>
+                {% endif %}
+                <a href="{% url 'blog_detail' slug=post.slug %}" class="read-more-btn">Read More</a>
             </div>
             {% empty %}
             <p>No blog posts available yet.</p>
@@ -24,4 +32,10 @@
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    console.log("Blog List Page Loaded.");
+</script>
 {% endblock %}

@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}{{ post.title }}{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'blog/css/blog.css' %}">
+{% endblock %}
 
 {% block content %}
 <h1>{{ post.title }}</h1>
@@ -9,17 +14,43 @@
 <p>Category: {{ post.category }}</p>
 {% endif %}
 
-<div>
-    {% if post.gist_id %}
-    <h2>Gist Content:</h2>
-    <script src="https://gist.github.com/{{ post.gist_id }}.js"></script>
-    <noscript>
-        <pre><code>{{ post.gist_content }}</code></pre>
-    </noscript>
-    {% elif post.content %}
-    {{ post.content|safe }}
+<div class="blog-post-content">
+    {% if post.show_fetched_first and post.content_fetched %}
+        {{ post.content_fetched|safe }}
+        {% if post.content_manual %}
+        <div class="secondary-content">
+            {{ post.content_manual|safe }}
+        </div>
+        {% endif %}
     {% else %}
+        {% if post.content_manual %}
+        {{ post.content_manual|safe }}
+        {% endif %}
+        {% if post.content_fetched %}
+        <div class="secondary-content">
+            {{ post.content_fetched|safe }}
+        </div>
+        {% endif %}
+    {% endif %}
+
+    {% if not post.content_fetched and not post.content_manual %}
     <p>No content available for this blog post.</p>
     {% endif %}
 </div>
+
+{% if post.credit %}
+<div class="blog-credits">
+    <h3>Credits:</h3>
+    <p>{{ post.credit|safe }}</p>
+</div>
+{% endif %}
+{% endblock content %}
+
+{% block extra_js %}
+<script>
+    console.log("Blog Detail Page Loaded: {{ post.title }}");
+    console.log("content_fetched exists: {{ post.content_fetched|yesno:'true,false' }}");
+    console.log("content_manual exists: {{ post.content_manual|yesno:'true,false' }}");
+    console.log("show_fetched_first: {{ post.show_fetched_first|yesno:'true,false' }}");
+</script>
 {% endblock %}
