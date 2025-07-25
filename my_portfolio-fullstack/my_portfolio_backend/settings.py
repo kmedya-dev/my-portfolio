@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'my_portfolio_backend.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='sqlite:///db.sqlite3',
+        default=os.environ.get('DATABASE_URL', 'postgresql://kmedya:JBu4AjZ6dwpQn7GnjtMQSIAh5pugGW9h@dpg-d21ontu3jp1c7384ljsg-a/my_portfolio_fullstack_db'),
         conn_max_age=600,
     )
 }
