@@ -1,0 +1,33 @@
+services:
+  - type: web
+    name: kmedya
+    runtime: python
+    repo: https://github.com/kmedya-dev/my-portfolio
+    branch: full-stack
+    rootDir: my_portfolio-fullstack/
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn my_portfolio_backend.wsgi"
+    healthCheckPath: "/healthz"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase: my_portfolio_fullstack_db
+      - key: SECRET_KEY
+        generateValue: true # Render will generate a secure random value
+      - key: DJANGO_SUPERUSER_USERNAME
+        sync: false # Set this in Render dashboard secrets
+      - key: DJANGO_SUPERUSER_EMAIL
+        sync: false # Set this in Render dashboard secrets
+      - key: DJANGO_SUPERUSER_PASSWORD
+        sync: false # Set this in Render dashboard secrets
+    autoDeploy: true
+    pullRequestPreviewsEnabled: false
+    plan: free # Or 'starter', 'standard', etc.
+    region: singapore # Or your preferred region
+
+  - type: pserv
+    name: my_portfolio_fullstack_db
+    plan: free # Or 'starter', 'standard', etc.
+    region: singapore # Must be the same region as the web service
+    databaseName: my_portfolio_fullstack_db
+    user: kmedya
+    autoDeploy: true # Automatically deploy database changes (migrations)
