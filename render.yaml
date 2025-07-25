@@ -1,33 +1,36 @@
+version: "1"
+
 services:
   - type: web
     name: kmedya
     runtime: python
     repo: https://github.com/kmedya-dev/my-portfolio
-    branch: full-stack
+    region: singapore
+    plan: free
     rootDir: my_portfolio-fullstack/
-    buildCommand: "./build.sh"
-    startCommand: "gunicorn my_portfolio_backend.wsgi"
-    healthCheckPath: "/healthz"
+    buildCommand: ./build.sh
+    startCommand: gunicorn my_portfolio_backend.wsgi:application
+    healthCheckPath: /healthz
+    autoDeployTrigger: commit
     envVars:
-      - key: DATABASE_URL
-        fromDatabase: my_portfolio_fullstack_db
-      - key: SECRET_KEY
-        generateValue: true # Render will generate a secure random value
       - key: DJANGO_SUPERUSER_USERNAME
-        sync: false # Set this in Render dashboard secrets
+        sync: false
       - key: DJANGO_SUPERUSER_EMAIL
-        sync: false # Set this in Render dashboard secrets
+        sync: false
       - key: DJANGO_SUPERUSER_PASSWORD
-        sync: false # Set this in Render dashboard secrets
-    autoDeploy: true
-    pullRequestPreviewsEnabled: false
-    plan: free # Or 'starter', 'standard', etc.
-    region: singapore # Or your preferred region
+        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: postgres@my_portfolio-fullstack
+          property: connectionString
 
-  - type: pserv
-    name: my_portfolio_fullstack_db
-    plan: free # Or 'starter', 'standard', etc.
-    region: singapore # Must be the same region as the web service
+databases:
+  - name: postgres@my_portfolio-fullstack
     databaseName: my_portfolio_fullstack_db
     user: kmedya
-    autoDeploy: true # Automatically deploy database changes (migrations)
+    plan: free
+    region: singapore
+    postgresMajorVersion: "16"
+    ipAllowList:
+      - source: 0.0.0.0/0
+        description: everywhere

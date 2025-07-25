@@ -86,10 +86,7 @@ WSGI_APPLICATION = 'my_portfolio_backend.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL', 'postgresql://kmedya:JBu4AjZ6dwpQn7GnjtMQSIAh5pugGW9h@dpg-d21ontu3jp1c7384ljsg-a/my_portfolio_fullstack_db'),
-        conn_max_age=600,
-    )
+    'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
 }
 
 
