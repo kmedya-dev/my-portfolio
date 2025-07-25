@@ -8,20 +8,11 @@ pip install -r requirements.txt
 echo " Collecting static files..."
 python manage.py collectstatic --no-input
 
-echo " Dumping current data..."
-python manage.py dumpdata > full_stack_backup.json
-
-echo " Resetting migrations..."
+echo "⚙️ Making and applying migrations..."
 find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
 find . -path "*/migrations/*.pyc" -delete
-rm -f db.sqlite3
-
-echo "⚙️ Making new migrations..."
 python manage.py makemigrations
 python manage.py migrate
-
-echo "♻️ Loading dumped data..."
-python manage.py loaddata full_stack_backup.json
 
 echo " Creating superuser if not exists..."
 python manage.py shell <<EOF
