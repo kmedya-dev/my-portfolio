@@ -8,34 +8,30 @@ from dotenv import load_dotenv # Import load_dotenv
 # Load environment variables from .env file in local development
 # This line should be at the very top of your settings.py
 # It will only load if .env exists, and won't override existing system env vars (like on Render)
-load_dotenv()
+if os.environ.get('RENDER') != 'true':
+    load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
-# Use an environment variable for SECRET_KEY, with a fallback for local dev
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-4za!f+#@krq!n+!z2xw9+*v3j$-t+*7b@o3ekm+udh^*toonlc')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# Use an environment variable for DEBUG. Render will set this to 'False' in production.
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    '.onrender.com', # Allows all Render subdomains
 ]
-# Add your specific Render domain if needed, e.g., 'kmedya.onrender.com'
+# Dynamically add Render's hostname to ALLOWED_HOSTS
 if os.environ.get('RENDER_EXTERNAL_HOSTNAME'):
     ALLOWED_HOSTS.append(os.environ['RENDER_EXTERNAL_HOSTNAME'])
 
 
-# Application definition
+# Application definition (standard Django apps)
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -112,49 +108,29 @@ else:
     }
 
 
-# Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
-
+# Password validation (standard Django)
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    { 'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator', },
+    { 'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator', },
+    { 'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator', },
+    { 'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator', },
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
-
+# Internationalization (standard Django)
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
-
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATICFILES_DIRS = [
-]
+STATICFILES_DIRS = []
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
-
+# Default primary key field type (standard Django)
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'

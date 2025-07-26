@@ -4,33 +4,28 @@
 {% block title %}Blog{% endblock %}
 
 {% block extra_head %}
-<link rel="stylesheet" href="{% static 'blog/css/blog.css' %}">
 {% endblock %}
 
 {% block content %}
 <section id="blog-list" class="blog section">
-    <div class="container">
-        <h2>All Blog Posts</h2>
-        <div class="blog-grid">
-            {% for post in posts %}
-            <div class="blog-post-card">
-                <h2>{{ post.title }}</h2>
-                {% if post.category %}
-                <span class="blog-category-badge">{{ post.category }}</span>
-                {% endif %}
-                <p class="blog-date">Published: {{ post.pub_date|date:"F d, Y" }}</p>
-                {% if post.content_fetched %}
-                <p>{{ post.content_fetched|striptags|truncatechars:150 }}</p>
-                {% elif post.content_manual %}
-                <p>{{ post.content_manual|striptags|truncatechars:150 }}</p>
-                {% endif %}
-                <a href="{% url 'blog_detail' slug=post.slug %}" class="read-more-btn">Read More</a>
-            </div>
-            {% empty %}
-            <p>No blog posts available yet.</p>
-            {% endfor %}
-        </div>
+  <div class="container py-4">
+    <h3 class="mb-4 fw-bold text-center">📚 All Blog Posts</h3>
+    <div class="blog-grid">
+      {% for post in posts %}
+      <div class="blog-post-card">
+        <h2>{{ post.title }}</h2>
+        {% if post.content_fetched %}
+          <p>{{ post.content_fetched|truncatewords:30 }}</p>
+        {% elif post.content_manual %}
+          <p>{{ post.content_manual|truncatewords:30 }}</p>
+        {% endif %}
+        <a href="{% url 'blog_detail' post.slug %}">Read More →</a>
+      </div>
+      {% empty %}
+      <p>No blog posts available yet.</p>
+      {% endfor %}
     </div>
+  </div>
 </section>
 {% endblock %}
 
