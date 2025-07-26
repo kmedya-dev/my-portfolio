@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'projects',
     'blog',
     'courses',
+    'notes',
 ]
 
 MIDDLEWARE = [

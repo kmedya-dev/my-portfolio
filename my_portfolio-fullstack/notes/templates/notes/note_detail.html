@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ note.title }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ note.title }}</h1>
+    <p><small>Published on: {{ note.created_at|date:"F j, Y" }}</small></p>
+    <hr>
+    <div id="note-content">
+        {{ note.content|safe }}
+    </div>
+    {% if note.pdf_file %}
+        <a href="{{ note.pdf_file.url }}" class="btn btn-primary" download>Download as PDF</a>
+    {% else %}
+        <p>No PDF available for download.</p>
+    {% endif %}
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyzhbI78391NKPxfnBBl38r529J-vE2_TftVn_Hl+e9J2T9G/nS/C" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfB4xUjY41eC2D2L/C/G5G2e/s3/Tpc/8EDC/eOQe/jD/P+i+vKkU+Hj/fS6C" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4TCAHBGoFVbN/6OHHPCv/RetC7/CCrJ+GasVLVIbg" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.getElementById("note-content"), {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\[", right: "\\]", display: true},
+                {left: "\\(", right: "\\)", display: false}
+            ]
+        });
+    });
+</script>
+{% endblock %}
