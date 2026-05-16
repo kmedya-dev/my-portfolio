@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import WelcomeMessage, About, Skill, Achievement, Experience, Contact
+from projects.models import Project
 
 def home(request):
     welcome_message = WelcomeMessage.objects.first()
@@ -9,6 +10,7 @@ def home(request):
     achievements = Achievement.objects.all()
     experiences = Experience.objects.all().order_by('-start_date')
     contact = Contact.objects.first()
+    recent_projects = Project.objects.all().order_by('-created_at')[:3]
 
     context = {
         'welcome_message': welcome_message,
@@ -17,6 +19,7 @@ def home(request):
         'achievements': achievements,
         'experiences': experiences,
         'contact': contact,
+        'recent_projects': recent_projects,
     }
     return render(request, 'homepage/index.html', context)
 

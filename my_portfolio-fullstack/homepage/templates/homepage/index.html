@@ -89,12 +89,28 @@
 <!-- Projects Section -->
 <section id="projects" class="projects section">
   <div class="container">
-    <h2>Projects</h2>
-    <p>
-      ‍ Initializing project showcase...<br>
-      While the matrix loads, explore my work at
-      <a href="{% url 'project_list' %}">GitHub HQ</a>
-    </p>
+    <h2>Recent Projects</h2>
+    <div class="project-grid">
+      {% for project in recent_projects %}
+      <div class="project-card">
+        <h3>{{ project.title }}</h3>
+        <p>{{ project.description|truncatewords:20 }}</p>
+        <div class="project-links">
+          {% if project.link %}
+          <a href="{{ project.link }}" target="_blank" class="btn btn-secondary">View</a>
+          {% endif %}
+          {% if project.github_link %}
+          <a href="{{ project.github_link }}" target="_blank" class="btn btn-secondary">GitHub</a>
+          {% endif %}
+        </div>
+      </div>
+      {% empty %}
+      <p>Initializing project showcase... check back soon!</p>
+      {% endfor %}
+    </div>
+    <div class="view-all-wrapper" style="margin-top: 2rem; text-align: center;">
+      <a href="{% url 'project_list' %}" class="btn btn-primary">View All Projects</a>
+    </div>
   </div>
 </section>
 

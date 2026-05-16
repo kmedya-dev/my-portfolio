@@ -13,6 +13,9 @@ python manage.py migrate
 echo " Collecting static files..."
 python manage.py collectstatic --no-input
 
+echo " Fetching GitHub projects..."
+python manage.py fetch_github_projects
+
 echo " Creating superuser if not exists..."
 python manage.py shell <<EOF
 import os
