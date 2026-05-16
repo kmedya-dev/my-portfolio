@@ -33,11 +33,7 @@ build/
 # --- Git ignore helpers ---
 !.gitignore
 
-# --- Migrations (optional, unless keeping in VCS) ---
-*/migrations/*.py
-*/migrations/*.pyc
-
 # --- Secret keys file (optional) ---
 secrets.json
-db.sqlite3
 venv/
+staticfiles/
