@@ -1,17 +1,96 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ project.title }}{% endblock %}
+{% block title %}{{ project.title }} | Project Details{% endblock %}
 
 {% block content %}
-<h1>{{ project.title }}</h1>
-<p>{{ project.description|safe }}</p>
-{% if project.image %}
-<img src="{{ project.image.url }}" alt="{{ project.title }}">
-{% endif %}
-{% if project.link %}
-<p><a href="{{ project.link }}" target="_blank">View Project</a></p>
-{% endif %}
-{% if project.github_link %}
-<p><a href="{{ project.github_link }}" target="_blank">GitHub Repository</a></p>
-{% endif %}
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+    <div class="max-w-3xl w-full">
+        <a href="{% url 'project_list' %}" class="inline-flex items-center text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline mb-8">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+            </svg>
+            Back to Projects
+        </a>
+
+        <!-- Project Showcase Card -->
+        <div 
+            id="project-card"
+            class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden cursor-pointer transform transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl border border-gray-200 dark:border-gray-700"
+            onclick="redirectToGithub()"
+        >
+            <!-- Project Image/Thumbnail -->
+            <div class="relative h-64 sm:h-80 overflow-hidden bg-gray-200 dark:bg-gray-700">
+                {% if project.image %}
+                    <img src="{{ project.image.url }}" alt="{{ project.title }}" class="w-full h-full object-cover">
+                {% else %}
+                    <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600 text-white text-6xl font-bold">
+                        {{ project.title|slice:":1" }}
+                    </div>
+                {% endif %}
+                <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-10 transition-opacity duration-300"></div>
+            </div>
+
+            <div class="p-8">
+                <!-- Title & Tech Stack -->
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+                    <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white">{{ project.title }}</h1>
+                    <div class="flex flex-wrap gap-2">
+                        {% for tech in project.get_tech_list %}
+                            <span class="px-3 py-1 text-xs font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100 rounded-full">
+                                {{ tech }}
+                            </span>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="prose dark:prose-invert max-w-none mb-8 text-gray-600 dark:text-gray-300">
+                    {{ project.description|safe }}
+                </div>
+
+                <!-- Buttons -->
+                <div class="flex flex-wrap gap-4">
+                    {% if project.github_link %}
+                    <button 
+                        onclick="event.stopPropagation(); window.open('{{ project.github_link }}', '_blank')"
+                        class="flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-gray-900 hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100 transition-colors duration-200"
+                    >
+                        <i class="fab fa-github mr-2"></i> View on GitHub
+                    </button>
+                    {% endif %}
+
+                    {% if project.link %}
+                    <button 
+                        onclick="event.stopPropagation(); window.open('{{ project.link }}', '_blank')"
+                        class="flex items-center justify-center px-6 py-3 border border-gray-300 dark:border-gray-600 text-base font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 dark:text-white dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors duration-200"
+                    >
+                        <i class="fas fa-external-link-alt mr-2"></i> Live Demo
+                    </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <p class="mt-6 text-center text-sm text-gray-500 dark:text-gray-400">
+            Click anywhere on the card to visit the repository.
+        </p>
+    </div>
+</div>
+
+<script>
+    function redirectToGithub() {
+        const githubLink = "{{ project.github_link }}";
+        if (githubLink) {
+            window.open(githubLink, '_blank');
+        } else {
+            const liveLink = "{{ project.link }}";
+            if (liveLink) {
+                window.open(liveLink, '_blank');
+            }
+        }
+    }
+</script>
 {% endblock %}
