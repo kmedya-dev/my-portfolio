@@ -19,44 +19,51 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {% for project in projects %}
-            <div class="group bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl border border-gray-200 dark:border-gray-700 h-full flex flex-col">
-                <!-- Project Image -->
-                <div class="relative h-48 overflow-hidden bg-gray-200 dark:bg-gray-700">
-                    {% if project.image %}
-                    <img src="{{ project.image.url }}" alt="{{ project.title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    {% else %}
-                    <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600 text-white text-4xl font-bold">
-                        {{ project.title|slice:":1" }}
+            <a href="{{ project.get_absolute_url }}" class="group block h-full">
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-all duration-300 transform group-hover:-translate-y-2 group-hover:shadow-2xl border border-gray-200 dark:border-gray-700 h-full flex flex-col">
+                    <!-- Project Image -->
+                    <div class="relative h-48 overflow-hidden bg-gray-200 dark:bg-gray-700">
+                        {% if project.image %}
+                        <img src="{{ project.image.url }}" alt="{{ project.title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        {% else %}
+                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600 text-white text-4xl font-bold">
+                            {{ project.title|slice:":1" }}
+                        </div>
+                        {% endif %}
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-opacity duration-300"></div>
                     </div>
-                    {% endif %}
+
+                    <!-- Project Info -->
+                    <div class="p-6 flex-grow flex flex-col">
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
+                            {{ project.title }}
+                        </h2>
+                        
+                        <!-- Tech Stack (Preview) -->
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            {% for tech in project.get_tech_list|slice:":3" %}
+                            <span class="px-2 py-0.5 text-xs font-medium bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 rounded">
+                                {{ tech }}
+                            </span>
+                            {% endfor %}
+                            {% if project.get_tech_list|length > 3 %}
+                            <span class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">+{{ project.get_tech_list|length|add:"-3" }} more</span>
+                            {% endif %}
+                        </div>
+
+                        <div class="text-gray-600 dark:text-gray-400 text-sm mb-6 flex-grow line-clamp-3">
+                            {{ project.description|striptags|truncatewords:25 }}
+                        </div>
+
+                        <div class="flex items-center text-blue-600 dark:text-blue-400 font-medium text-sm mt-auto">
+                            View Showcase
+                            <svg class="w-4 h-4 ml-1 transition-transform duration-200 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
-
-                <!-- Project Info -->
-                <div class="p-6 flex-grow flex flex-col">
-                    <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                        {{ project.title }}
-                    </h2>
-                    
-                    <!-- Tech Stack -->
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        {% for tech in project.get_tech_list %}
-                        <span class="px-2 py-0.5 text-xs font-medium bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 rounded">
-                            {{ tech }}
-                        </span>
-                        {% endfor %}
-                    </div>
-
-                    <div class="text-gray-600 dark:text-gray-400 text-sm mb-6 flex-grow">
-                        {{ project.description|striptags|truncatewords:30 }}
-                    </div>
-
-                    {% if project.github_link %}
-                    <a href="{{ project.github_link }}" target="_blank" class="w-full flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-gray-900 hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100 transition-colors duration-200">
-                        <i class="fab fa-github mr-2"></i> View on GitHub
-                    </a>
-                    {% endif %}
-                </div>
-            </div>
+            </a>
             {% empty %}
             <div class="col-span-full text-center py-12">
                 <div class="text-gray-400 mb-4">

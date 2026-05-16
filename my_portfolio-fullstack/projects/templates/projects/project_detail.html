@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ project.title }} | Project Showcase{% endblock %}
+
+{% block content %}
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+    <div class="max-w-3xl w-full">
+        <!-- Back Link -->
+        <a href="{% url 'project_list' %}" class="inline-flex items-center text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline mb-8 transition-colors duration-200">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+            </svg>
+            Back to All Projects
+        </a>
+
+        <!-- Single Project Card Showcase -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden border border-gray-200 dark:border-gray-700">
+            <!-- Project Image/Banner -->
+            <div class="relative h-64 sm:h-96 overflow-hidden bg-gray-200 dark:bg-gray-700">
+                {% if project.image %}
+                    <img src="{{ project.image.url }}" alt="{{ project.title }}" class="w-full h-full object-cover">
+                {% else %}
+                    <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-600 to-indigo-700 text-white text-7xl font-bold">
+                        {{ project.title|slice:":1" }}
+                    </div>
+                {% endif %}
+                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+            </div>
+
+            <div class="p-8 sm:p-10">
+                <!-- Header: Title & Tech Tags -->
+                <div class="mb-8">
+                    <h1 class="text-4xl font-extrabold text-gray-900 dark:text-white mb-4">
+                        {{ project.title }}
+                    </h1>
+                    <div class="flex flex-wrap gap-2">
+                        {% for tech in project.get_tech_list %}
+                            <span class="px-3 py-1 text-xs font-bold uppercase tracking-wider bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300 rounded-md">
+                                {{ tech }}
+                            </span>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Description Body -->
+                <div class="prose prose-blue dark:prose-invert max-w-none mb-10 text-gray-600 dark:text-gray-300 leading-relaxed">
+                    {{ project.description|safe }}
+                </div>
+
+                <!-- Footer: Primary Action Button Only -->
+                <div class="pt-6 border-t border-gray-100 dark:border-gray-700">
+                    {% if project.github_link %}
+                    <a 
+                        href="{{ project.github_link }}" 
+                        target="_blank"
+                        class="inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 border border-transparent text-lg font-bold rounded-xl text-white bg-gray-900 hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100 transform transition-all duration-200 hover:scale-[1.02] active:scale-95 shadow-lg"
+                    >
+                        <i class="fab fa-github mr-3 text-xl"></i> View on GitHub
+                    </a>
+                    {% else %}
+                    <p class="text-sm text-gray-500 dark:text-gray-400 italic">GitHub repository link not available for this project.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Semantic Meta Info -->
+        <div class="mt-8 flex justify-between items-center text-sm text-gray-400 dark:text-gray-500 px-2">
+            <span>Published: {{ project.created_at|date:"F Y" }}</span>
+            <div class="flex items-center">
+                <span class="mr-2">Share this project:</span>
+                <button onclick="navigator.clipboard.writeText(window.location.href); alert('Link copied!')" class="hover:text-blue-500 transition-colors">
+                    <i class="fas fa-link"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

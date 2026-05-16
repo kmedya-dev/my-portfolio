@@ -96,9 +96,7 @@
         <h3>{{ project.title }}</h3>
         <p>{{ project.description|striptags|truncatewords:20 }}</p>
         <div class="project-links">
-          {% if project.github_link %}
-          <a href="{{ project.github_link }}" target="_blank" class="btn btn-secondary">View on GitHub</a>
-          {% endif %}
+          <a href="{{ project.get_absolute_url }}" class="btn btn-secondary">View Showcase</a>
         </div>
       </div>
       {% empty %}
