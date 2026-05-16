@@ -96,7 +96,7 @@
         <h3>{{ project.title }}</h3>
         <p>{{ project.description|striptags|truncatewords:20 }}</p>
         <div class="project-links">
-          <a href="{% url 'project_detail' project.slug %}" class="btn btn-secondary">View Showcase</a>
+          <a href="{{ project.get_absolute_url }}" class="btn btn-secondary">View Showcase</a>
         </div>
       </div>
       {% empty %}
