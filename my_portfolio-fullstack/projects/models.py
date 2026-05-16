@@ -21,9 +21,6 @@ class Project(models.Model):
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
 
-    def get_absolute_url(self):
-        return reverse('project_detail', kwargs={'slug': self.slug})
-
     def get_tech_list(self):
         if self.technologies:
             return [tech.strip() for tech in self.technologies.split(',')]
