@@ -95,8 +95,11 @@
       <div class="project-card">
         <h3>{{ project.title }}</h3>
         <p>{{ project.description|striptags|truncatewords:20 }}</p>
-        <div class="project-links">
-          <a href="{{ project.get_absolute_url }}" class="btn btn-secondary">View Showcase</a>
+        <div class="project-links" style="display: flex; gap: 0.5rem; justify-content: center;">
+          <a href="{{ project.get_absolute_url }}" class="btn btn-secondary">Details</a>
+          {% if project.github_link %}
+          <a href="{{ project.github_link }}" target="_blank" class="btn btn-primary" style="background-color: #333; color: white;">GitHub</a>
+          {% endif %}
         </div>
       </div>
       {% empty %}
@@ -104,7 +107,7 @@
       {% endfor %}
     </div>
     <div class="view-all-wrapper" style="margin-top: 2rem; text-align: center;">
-      <a href="{% url 'project_list' %}" class="btn btn-primary">View All Projects</a>
+      <a href="{% url 'projects:project_list' %}" class="btn btn-primary">View All Projects</a>
     </div>
   </div>
 </section>

@@ -22,7 +22,7 @@ class Project(models.Model):
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('project_detail', kwargs={'slug': self.slug})
+        return reverse('projects:project_detail', kwargs={'slug': self.slug})
 
     def get_tech_list(self):
         if self.technologies:

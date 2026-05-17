@@ -9,7 +9,7 @@
 <div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
     <div class="max-w-3xl w-full">
         <!-- Back Link -->
-        <a href="{% url 'project_list' %}" class="inline-flex items-center text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline mb-8 transition-colors duration-200">
+        <a href="{% url 'projects:project_list' %}" class="inline-flex items-center text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline mb-8 transition-colors duration-200">
             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
             </svg>
@@ -50,31 +50,32 @@
                     {{ project.description|safe }}
                 </div>
 
-                <!-- Footer: Primary Action Button Only -->
-                <div class="pt-6 border-t border-gray-100 dark:border-gray-700">
+                <!-- Footer: Action Buttons -->
+                <div class="pt-6 border-t border-gray-100 dark:border-gray-700 flex flex-wrap gap-4">
                     {% if project.github_link %}
                     <a 
                         href="{{ project.github_link }}" 
                         target="_blank"
-                        class="inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 border border-transparent text-lg font-bold rounded-xl text-white bg-gray-900 hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100 transform transition-all duration-200 hover:scale-[1.02] active:scale-95 shadow-lg"
+                        class="inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-bold rounded-xl text-white bg-gray-900 hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100 transform transition-all duration-200 hover:scale-[1.02] active:scale-95 shadow-lg"
                     >
                         <i class="fab fa-github mr-3 text-xl"></i> View on GitHub
                     </a>
-                    {% else %}
-                    <p class="text-sm text-gray-500 dark:text-gray-400 italic">GitHub repository link not available for this project.</p>
+                    {% endif %}
+                    
+                    {% if project.link %}
+                    <a 
+                        href="{{ project.link }}" 
+                        target="_blank"
+                        class="inline-flex items-center justify-center px-8 py-4 border border-gray-300 dark:border-gray-600 text-lg font-bold rounded-xl text-gray-900 bg-white hover:bg-gray-50 dark:text-white dark:bg-gray-800 dark:hover:bg-gray-700 transform transition-all duration-200 hover:scale-[1.02] active:scale-95 shadow-lg"
+                    >
+                        <i class="fas fa-external-link-alt mr-3 text-xl"></i> Live Demo
+                    </a>
+                    {% endif %}
+
+                    {% if not project.github_link and not project.link %}
+                    <p class="text-sm text-gray-500 dark:text-gray-400 italic">No links available for this project.</p>
                     {% endif %}
                 </div>
-            </div>
-        </div>
-
-        <!-- Semantic Meta Info -->
-        <div class="mt-8 flex justify-between items-center text-sm text-gray-400 dark:text-gray-500 px-2">
-            <span>Published: {{ project.created_at|date:"F Y" }}</span>
-            <div class="flex items-center">
-                <span class="mr-2">Share this project:</span>
-                <button onclick="navigator.clipboard.writeText(window.location.href); alert('Link copied!')" class="hover:text-blue-500 transition-colors">
-                    <i class="fas fa-link"></i>
-                </button>
             </div>
         </div>
     </div>
