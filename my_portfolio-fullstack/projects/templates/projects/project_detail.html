@@ -61,19 +61,9 @@
                         <i class="fab fa-github mr-3 text-xl"></i> View on GitHub
                     </a>
                     {% endif %}
-                    
-                    {% if project.link %}
-                    <a 
-                        href="{{ project.link }}" 
-                        target="_blank"
-                        class="inline-flex items-center justify-center px-8 py-4 border border-gray-300 dark:border-gray-600 text-lg font-bold rounded-xl text-gray-900 bg-white hover:bg-gray-50 dark:text-white dark:bg-gray-800 dark:hover:bg-gray-700 transform transition-all duration-200 hover:scale-[1.02] active:scale-95 shadow-lg"
-                    >
-                        <i class="fas fa-external-link-alt mr-3 text-xl"></i> Live Demo
-                    </a>
-                    {% endif %}
 
-                    {% if not project.github_link and not project.link %}
-                    <p class="text-sm text-gray-500 dark:text-gray-400 italic">No links available for this project.</p>
+                    {% if not project.github_link %}
+                    <p class="text-sm text-gray-500 dark:text-gray-400 italic">No GitHub link available for this project.</p>
                     {% endif %}
                 </div>
             </div>
